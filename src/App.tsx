@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AddBusinessPage } from './pages/add-business';
@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<HomePage/>}/>
           <Route path={'/business/new'} element={<AddBusinessPage/>}/>
+          {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
