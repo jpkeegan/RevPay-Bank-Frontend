@@ -9,7 +9,8 @@ export function HomePage(){
         right={[
         {text:"Add Business",callback:()=>{router("/business/new")}},
         {text:"Business Loan",callback:()=>{router("/loan")}},
-        {text:"Wallet",callback:()=>{router("/wallet")}}]} />
+        {text:"Wallet",callback:()=>{router("/wallet")}},
+        {text:"Log Out",callback:()=>{router("/logout")}}]} />
         <h1>homepage</h1>
     </>
 }

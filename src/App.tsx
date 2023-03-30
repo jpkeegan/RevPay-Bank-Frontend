@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AddBusinessPage } from './pages/add-business';
 import { BankAccountForm } from './pages/bank-account-form';
 import { HomePage } from './pages/home-page';
+import { LogOut } from './pages/log-out-page';
 import { PersonalRegistrationPage } from './pages/personal-account-registration-page';
 import { SignInPage } from './pages/sign-in-page';
 import { WalletPage } from './pages/wallet-page';
@@ -23,6 +24,7 @@ function App() {
           <Route path={'/bankAccount'} element={<BankAccountForm/>}/>
           {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
           <Route path={'/wallet'} element={<WalletPage/>} />
+          <Route path='/logout' element={<LogOut/>}/>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
