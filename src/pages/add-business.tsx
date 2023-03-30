@@ -1,20 +1,29 @@
 import { useState } from "react";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Checkbox } from "../components/checkbox";
 import { Form } from "../components/form-comp";
 import { NavBar } from "../components/nav-bar";
-import { BusinessForm, businessForm, businessFormDef, CompsCheckedState } from "../requests/types";
+import { BusinessEntity, BusinessForm, businessForm, businessFormDef, CompsCheckedState } from "../requests/types";
+import { insertBusinessAccount } from "../requests/user-requests";
 
 
 const initState:CompsCheckedState = {
-    compsChecked:[{id:1,checked:true,about:"Business?"},{id:2,checked:false,about:"Non Profit?"}]
+    compsChecked:[{id:1,checked:false,about:"Non Profit?"}]
 }
 
 export function AddBusinessPage(){
     const [bools, setBools] = useState(initState);
     const router = useNavigate();
+    const createMutation = useMutation(insertBusinessAccount, {
+        onSuccess: () => console.log("success") 
+    });
     function submitBusiness(form:BusinessForm){
-        console.log(form);
+        const newBusiness:BusinessEntity = {address:form.address,email:form.email,name:form.name,
+            password:form.password,phone_number:form.phoneNumber,username:form.username,
+            bin:form.bin,ein:form.ein,isBusinessAccount:true,isForProfit:!bools.compsChecked[0].checked};
+        console.log(bools.compsChecked[0].checked)
+        createMutation.mutate(newBusiness);
     }
 
     function updateCheckStatus(index:number){

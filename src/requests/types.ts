@@ -27,14 +27,14 @@ export const businessFormDef:string = `{
 export type BusinessEntity = {
     address:             string;
     email:               string;
-    is_business_account: boolean;
+    isBusinessAccount: boolean;
     name:                string;
     password:            string;
     phone_number:        number;
     username:            string;
     bin:                 number;
     ein:                 number;
-    is_for_profit:       boolean;
+    isForProfit:       boolean;
 }
 
 export type BusinessForm = {
@@ -56,4 +56,23 @@ export type CompState={
 
 export type CompsCheckedState={
     compsChecked:CompState[]
+}
+
+export type UserAccount={
+    accountId:number
+    username:string
+    password:string
+    email:string
+    phoneNumber:number
+    name:string
+    address:string
+    isBusinessAccount:boolean
+}
+
+export type BusinessDetails={
+    businessId:number
+    bin:number
+    ein:number
+    isForProfit:boolean
+    accountId:number
 }
