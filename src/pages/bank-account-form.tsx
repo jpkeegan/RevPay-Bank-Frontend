@@ -4,12 +4,11 @@ import { addBankAccount } from "../requests/bank-account-requests";
 export type BankAccountInfo = {
     routingNumber: number,
     accountNumber: number,
-    accountId: number,
 }
 
 export function BankAccountForm() {
 
-    const [bankAccount, setBankAccount] = useState<BankAccountInfo>({ routingNumber: 0, accountNumber: 0, accountId: 0 });
+    const [bankAccount, setBankAccount] = useState<BankAccountInfo>({ routingNumber: 0, accountNumber: 0 });
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
@@ -23,7 +22,7 @@ export function BankAccountForm() {
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         await addBankAccount(bankAccount);
-        setBankAccount({ routingNumber: 0, accountNumber: 0, accountId: 0 })
+        setBankAccount({ routingNumber: 0, accountNumber: 0 })
         alert('Bank account successfully linked')
     }
 
