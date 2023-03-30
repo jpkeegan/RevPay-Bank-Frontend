@@ -1,4 +1,4 @@
-export type UserAccountInput = {
+export type UserAccountCreationInput = {
     username: string
     password: string
     email: string
