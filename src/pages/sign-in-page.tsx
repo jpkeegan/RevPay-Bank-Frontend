@@ -32,6 +32,7 @@ export function SignInPage(){
     else{
       localStorage.setItem("accountId",String(results.accountId));
       localStorage.setItem("username",String(results.username)); 
+      localStorage.setItem("businessAccount",String(results.businessAccount));
       navigation("/");
     }
   }

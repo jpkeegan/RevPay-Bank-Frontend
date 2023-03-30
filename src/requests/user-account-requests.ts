@@ -39,6 +39,9 @@ export type UserAccountUpdateForm = {
     businessAccount: boolean
 }
 
+export type Username = {
+    username: string
+}
 
 const url = "http://127.0.0.1:8080/";
 
@@ -54,6 +57,18 @@ export async function verifyUserAccount(login:SignInForm):Promise<UserAccountRet
     return returnUser;
 }
 
+export async function createUserAccount(user:UserAccountCreationInput):Promise<UserAccountReturnInfo>{
+    const httpResponse = await fetch(url+"userAccount", {
+        method: "POST",
+        body:JSON.stringify(user),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    });
+    const newUser:UserAccountReturnInfo = await httpResponse.json();
+    return newUser;
+}
+
 export async function getByUsername(username:string):Promise<UserAccountReturnInfo | FailedLoginReturn>{
     const httpResponse = await fetch(url+"userAccount/"+username);
     const returnUser:UserAccountReturnInfo = await httpResponse.json();
@@ -63,6 +78,12 @@ export async function getByUsername(username:string):Promise<UserAccountReturnIn
 export async function getAllUsers():Promise<UserAccountReturnInfo[]>{
     const httpResponse = await fetch(url+"userAccount");
     const returnUser:UserAccountReturnInfo[] = await httpResponse.json();
+    return returnUser;
+}
+
+export async function getAllUsernames():Promise<Username[]>{
+    const httpResponse = await fetch(url+"userAccount");
+    const returnUser:Username[] = await httpResponse.json();
     return returnUser;
 }
 
