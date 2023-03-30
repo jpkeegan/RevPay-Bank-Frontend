@@ -5,7 +5,7 @@ export type UserAccountInput = {
     phoneNumber: number
     name: string
     address: string
-    isBusinessAccount: boolean
+    businessAccount: boolean
 }
 
 export type SignInForm = {
@@ -20,7 +20,7 @@ export type UserAccountReturnInfo = {
     phoneNumber: number
     name: string
     address: string
-    isBusinessAccount: boolean
+    businessAccount: boolean
 }
 
 export type FailedLoginReturn = {
@@ -36,7 +36,7 @@ export type UserAccountUpdateForm = {
     phoneNumber: number
     name: string
     address: string
-    isBusinessAccount: boolean
+    businessAccount: boolean
 }
 
 
