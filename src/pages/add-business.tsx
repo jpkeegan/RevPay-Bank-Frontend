@@ -15,16 +15,7 @@ const initState:CompsCheckedState = {
 export function AddBusinessPage(){
     const [bools, setBools] = useState(initState);
     const router = useNavigate();
-    useEffect(()=>{
 
-        const accountIDCheck = localStorage.getItem("accountId");
-          if(!accountIDCheck){
-            alert("You have to sign in.")
-            router("/")
-          }else{
-            //Else is technically not necessary, but I use it to load local storage.
-          }
-        });
     const createMutation = useMutation(insertBusinessAccount, {
         onSuccess: () => console.log("success") 
     });

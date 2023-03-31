@@ -16,8 +16,12 @@ export function WalletPage() {
     });
     const accountId = Number(localStorage.getItem("accountId"));
     const router = useNavigate();
-
+    
     useEffect(()=>{
+        if(!accountId){
+            alert("You have to sign in.")
+            router("/")
+          }
         (async ()=>{
             const allBankAccounts = await getAllBankAccounts();
             const pulledWallet = await getWalletByAccountId(accountId);
