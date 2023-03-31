@@ -48,3 +48,9 @@ export async function deleteBankAccount(id: number): Promise<void> {
         method: 'DELETE'
     });
 }
+
+export async function getAllBankAccounts(): Promise<BankAccount[]> {
+    const httpResponse = await fetch(url + "bankAccounts");
+    const bankAccounts: BankAccount[] = await httpResponse.json();
+    return bankAccounts;
+}
