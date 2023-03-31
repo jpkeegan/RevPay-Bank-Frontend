@@ -10,8 +10,8 @@ export function BankAccountsList(props: BankAccountsListProps) {
     
         <ul>
 
-            {props.bankAccounts.map(ba => <li key={ba.accountId}>
-                Bank Account ID: {ba.accountId}<br/>
+            {props.bankAccounts.map(ba => <li key={ba.bankAccountId}>
+                Bank Account ID: {ba.bankAccountId}<br/>
                 Routing Number: {ba.routingNumber}<br/>
                 Account Number: {ba.accountNumber}<br/>
                 Balance: {ba.balance}<br/>
