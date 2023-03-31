@@ -9,6 +9,7 @@ import { PayRequestPage } from './pages/pay-request-page';
 import { PersonalRegistrationPage } from './pages/personal-account-registration-page';
 import { SignInPage } from './pages/sign-in-page';
 import { WalletPage } from './pages/wallet-page';
+import { AccountSettings } from './pages/account-settings';
 
 
 const queryClient = new QueryClient();
@@ -24,10 +25,10 @@ function App() {
           <Route path={'/business/new'} element={<AddBusinessPage/>}/>
           <Route path={'/'} element={<SignInPage/>}/>
           <Route path={'/registration'} element={<PersonalRegistrationPage/>}/>
-          <Route path={'/bankAccount'} element={<BankAccountForm/>}/>
           {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
           <Route path={'/wallet'} element={<WalletPage/>} />
           <Route path='/logout' element={<LogOut/>}/>
+          <Route path='/settings' element={<AccountSettings/>}/>
           <Route path={'/bankaccount/add'} element={<BankAccountForm/>} />
         </Routes>
       </BrowserRouter>

@@ -14,7 +14,7 @@ export type UserForm = {
 }
 
 
-const initialState: RegistrationState ={
+export const initialState: RegistrationState ={
     confirmedPassword: "",
     userInfo:{
         username: "",
@@ -26,9 +26,6 @@ const initialState: RegistrationState ={
         businessAccount: false
     }
 }
-
-
-
 
 export function PersonalRegistrationPage(){
     const navigation = useNavigate();
