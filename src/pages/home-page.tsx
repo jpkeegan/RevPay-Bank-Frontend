@@ -36,8 +36,8 @@ export function HomePage() {
                 { text: "Add Business", callback: () => { router("/business/new") } },
                 { text: "Business Loan", callback: () => { router("/loan") } },
                 { text: "Wallet", callback: () => { router("/wallet") } },
+                { text: "Settings", callback: () => { router("/settings") } },
                 { text: "Log Out", callback: () => { router("/logout") } },
-                { text: "Settings", callback: () => { router("/settings") } }
             ]} />
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>

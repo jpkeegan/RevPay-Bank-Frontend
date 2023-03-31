@@ -3,18 +3,26 @@ import { BankAccount, getAllBankAccounts } from "../requests/bank-account-reques
 import { BankAccountsList } from "../components/bank-account-list";
 import { NavBar } from "../components/nav-bar";
 import { useNavigate } from "react-router";
+import { Wallet, getWalletByAccountId } from "../requests/wallet-requests";
 
 
 export function WalletPage() {
 
     const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
-    const accountId = localStorage.getItem("accountId");
+    const [wallet, setWallet] = useState<Wallet>({
+        walletId: 0,
+        balance: 0,
+        accountId: 0
+    });
+    const accountId = Number(localStorage.getItem("accountId"));
     const router = useNavigate();
 
     useEffect(()=>{
         (async ()=>{
             const allBankAccounts = await getAllBankAccounts();
+            const pulledWallet = await getWalletByAccountId(accountId);
             setBankAccounts(allBankAccounts.filter(ba=> ba.accountId == Number(accountId)));
+            setWallet(pulledWallet);
         })();
     }, [])
 
@@ -32,7 +40,7 @@ export function WalletPage() {
             {text:"Log Out",callback:()=>{router("/logout")}}]} />
     
         <h3>Wallet Page!</h3>
-        <h4>Current RevPay Wallet Balance: $__.__</h4>
+        <h4>Current RevPay Wallet Balance: ${wallet.balance}</h4>
         <button>Add Money to RevPay Wallet</button>
 
         <h5>Banks List:</h5>

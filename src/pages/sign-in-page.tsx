@@ -54,8 +54,9 @@ export function SignInPage(){
       <br /><br />
 
       <label htmlFor="NewUser">New User? </label>
+      <br/>
       <Link to="/registration">SIGN UP for a Personal Account</Link>
-
+      <br/>
       <Link to="/business/new">SIGN UP for a Business Account</Link>
 
     </fieldset>

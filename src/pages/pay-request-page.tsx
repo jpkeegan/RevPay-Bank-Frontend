@@ -79,7 +79,7 @@ export function PayRequestPage(){
     return(
         <div className="container">
             <div className="nav-bar-container">
-                    <NavBar left={[{text:"Home",callback:()=>{router("/")}}]}
+                    <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
                 right={[
                 {text:"Add Business",callback:()=>{router("/business/new")}},
                 {text:"Business Loan",callback:()=>{router("/loan")}}]} />

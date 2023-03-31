@@ -43,7 +43,7 @@ export function BankAccountForm() {
     }
 
     return <>
-        <NavBar left={[{ text: "Home", callback: () => { router("/") } }]}
+        <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[]} />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <form onSubmit={handleSubmit}>
