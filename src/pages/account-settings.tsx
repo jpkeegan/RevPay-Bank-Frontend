@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { userRegistrationReducer } from "../reducers/user-registration-reducer";
 import { getAllUsernames, SignInForm, updateUserAccount, UserAccountReturnInfo, UserAccountUpdate, verifyUserAccount } from "../requests/user-account-requests";
@@ -8,7 +8,16 @@ export function AccountSettings() {
 
     const navigation = useNavigate();
     const [trackerState, dispatch] = useReducer(userRegistrationReducer, initialState);
+    useEffect(()=>{
 
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            navigation("/")
+          }else{
+            //Else is technically not necessary, but I use it to load local storage.
+          }
+        });
     const accountId = localStorage.getItem("accountId");
     const username = localStorage.getItem("username");
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Checkbox } from "../components/checkbox";
@@ -15,6 +15,16 @@ const initState:CompsCheckedState = {
 export function AddBusinessPage(){
     const [bools, setBools] = useState(initState);
     const router = useNavigate();
+    useEffect(()=>{
+
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            router("/")
+          }else{
+            //Else is technically not necessary, but I use it to load local storage.
+          }
+        });
     const createMutation = useMutation(insertBusinessAccount, {
         onSuccess: () => console.log("success") 
     });

@@ -8,6 +8,16 @@ import { getAllTransactions } from "../requests/transaction-requests";
 
 export function HomePage() {
     const router = useNavigate();
+    useEffect(()=>{
+
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            router("/")
+          }else{
+            //Else is technically not necessary, but I use it to load local storage.
+          }
+        });
 
     const initialStateTransaction: TransactionFormState[] = [
         {

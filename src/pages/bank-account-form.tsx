@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/nav-bar";
 import { addBankAccount } from "../requests/bank-account-requests";
@@ -14,7 +14,16 @@ export function BankAccountForm() {
 
     const router = useNavigate();
     const accountId = Number(localStorage.getItem("accountId"));
+    useEffect(()=>{
 
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            router("/")
+          }else{
+            //Else is technically not necessary, but I use it to load local storage.
+          }
+        });
     const [bankAccount, setBankAccount] = useState<BankAccountInfo>({ 
         routingNumber: 0, 
         accountNumber: 0, 
