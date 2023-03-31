@@ -37,7 +37,11 @@ export function PayRequestPage(){
     // const [FormState, dispatchForm] = useReducer(TransactionFormReducer, initialStateTransaction);
     const [transaction, setTransaction] = useState(initialStateTransaction);
     useEffect(() => {
-        
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            router("/")
+          }
         // useeffect to get all users at intial render
         async function fetchData() {
             const response = await getAllUsers();

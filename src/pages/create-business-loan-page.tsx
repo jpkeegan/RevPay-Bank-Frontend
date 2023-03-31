@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { BusinessLoanForm, createBusinessLoan } from "../requests/business-loan-requests"
 
@@ -6,6 +6,16 @@ import { BusinessLoanForm, createBusinessLoan } from "../requests/business-loan-
 export function CreateBusinessLoanPage() {
 
     const navigate = useNavigate();
+    useEffect(()=>{
+
+        const accountIDCheck = localStorage.getItem("accountId");
+          if(!accountIDCheck){
+            alert("You have to sign in.")
+            navigate("/")
+          }else{
+            //Else is technically not necessary, but I use it to load local storage.
+          }
+        });
 
     const [form, setForm] = useState<BusinessLoanForm>({
         amount: 0,
