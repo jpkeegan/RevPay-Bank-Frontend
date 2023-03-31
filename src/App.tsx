@@ -8,6 +8,7 @@ import { LogOut } from './pages/log-out-page';
 import { PersonalRegistrationPage } from './pages/personal-account-registration-page';
 import { SignInPage } from './pages/sign-in-page';
 import { WalletPage } from './pages/wallet-page';
+import { AccountSettings } from './pages/account-settings';
 
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ function App() {
           {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
           <Route path={'/wallet'} element={<WalletPage/>} />
           <Route path='/logout' element={<LogOut/>}/>
+          <Route path='/settings' element={<AccountSettings/>}/>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

@@ -1,9 +1,9 @@
 import { type } from "os"
-import { UserAccountCreationInput } from "../requests/user-account-requests"
+import { UserForm } from "../pages/personal-account-registration-page";
 
 
 export type RegistrationState ={
-    userInfo:UserAccountCreationInput
+    userInfo:UserForm
     confirmedPassword: string
 }
 
