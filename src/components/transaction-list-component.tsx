@@ -1,9 +1,11 @@
 
-import { TransactionFormState } from "../transaction-form-reducer";
+import { TransactionFormState } from "../reducers/transaction-form-reducer";
 
 
 export function TransactionList(Props:{transactionArray: TransactionFormState[]}){
+    // basically takes in transaction list as props and spreads them out on a table
 
+    // converts date in props which is a number to a string to make it look nice
     function convertDate(date :number){
         return new Date(date * 1000).toLocaleDateString()
     }
@@ -19,18 +21,18 @@ export function TransactionList(Props:{transactionArray: TransactionFormState[]}
                         <th>Transaction ID</th>
                         <th>Amount</th>
                         <th>Sent?</th>
-                        <th>AccountId</th>
-                        <th>Account Email</th>
+                        <th>With Account Id</th>
+                        <th>With Account Email</th>
                         <th>Date</th>
                     </tr>
                     {Props.transactionArray.map(
                         (item) =>   <tr className="transaction-list-table-items"key={item.transactionId}> 
                                         <th>{item.transactionId}</th>
                                         <th>{item.amount}</th>
-                                        <th>{item.send}</th>
+                                        <th>{item.send.toString()}</th>
                                         <th>{item.accountId}</th>
                                         <th>{item.accountEmail}</th> 
-                                        <th>{convertDate(item.dateTime)}</th>
+                                        <th>{convertDate(Number(item.dateTime))}</th>
                                     </tr>
                         )}
                 </table>
