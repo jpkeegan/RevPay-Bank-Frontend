@@ -5,6 +5,7 @@ import { Checkbox } from "../components/checkbox";
 import { Form } from "../components/form-comp";
 import { NavBar } from "../components/nav-bar";
 import { BusinessEntity, BusinessForm, businessForm, businessFormDef, CompsCheckedState } from "../requests/types";
+import { FailedLoginReturn, getByUsername } from "../requests/user-account-requests";
 import { insertBusinessAccount } from "../requests/user-requests";
 
 
@@ -17,14 +18,27 @@ export function AddBusinessPage(){
     const router = useNavigate();
 
     const createMutation = useMutation(insertBusinessAccount, {
-        onSuccess: () => console.log("success") 
+        onSuccess: () => {
+            console.log("success")
+        } 
     });
-    function submitBusiness(form:BusinessForm){
-        const newBusiness:BusinessEntity = {address:form.address,email:form.email,name:form.name,
+    async function submitBusiness(form:BusinessForm){
+        const checkUser = async function(){
+            const result = await getByUsername(form.username)
+                if((result as FailedLoginReturn).status){
+                    console.log((result as FailedLoginReturn).status)
+                    return true
+                }
+        }
+        if(await checkUser()){
+            const newBusiness:BusinessEntity = {address:form.address,email:form.email,name:form.name,
             password:form.password,phone_number:form.phoneNumber,username:form.username,
-            bin:form.bin,ein:form.ein,isBusinessAccount:true,isForProfit:!bools.compsChecked[0].checked};
-        console.log(bools.compsChecked[0].checked)
-        createMutation.mutate(newBusiness);
+            bin:form.bin,ein:form.ein,businessAccount:true,isForProfit:!bools.compsChecked[0].checked};
+            console.log("all is well")
+            createMutation.mutate(newBusiness);
+        }else{
+            alert("Sorry name already in use. Please try another")
+        }
     }
 
     function updateCheckStatus(index:number){
