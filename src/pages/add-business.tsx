@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Checkbox } from "../components/checkbox";
@@ -16,6 +16,7 @@ const initState:CompsCheckedState = {
 export function AddBusinessPage(){
     const [bools, setBools] = useState(initState);
     const router = useNavigate();
+
     const createMutation = useMutation(insertBusinessAccount, {
         onSuccess: () => {
             console.log("success")
@@ -47,7 +48,7 @@ export function AddBusinessPage(){
     }
 
     return<>
-        <NavBar left={[{text:"Home",callback:()=>{router("/")}}]}
+        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
         right={[]} />
         <Form def={businessFormDef} initState={businessForm} handler={submitBusiness} buttonText={"Submit"}/>
         {bools.compsChecked.map(c=><Checkbox key={c.about} isChecked={c.checked} label={c.about} checkHandler={()=>{updateCheckStatus(c.id)}} index={c.id}/>)}
