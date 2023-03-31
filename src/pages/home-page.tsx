@@ -31,7 +31,7 @@ export function HomePage(){
         fetchData();
       }, []);
     return <>
-        <NavBar left={[{text:"Home",callback:()=>{router("/")}}]}
+        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
         right={[
         {text:"Add Business",callback:()=>{router("/business/new")}},
         {text:"Business Loan",callback:()=>{router("/loan")}},
