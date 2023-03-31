@@ -1,24 +1,29 @@
 export type TransactionFormState = {
-    transactionId: number,
-    amount: number,
+    transactionId: string,
+    amount: string,
     send: boolean,
-    accountId: number,
+    accountId: string,
     accountEmail: string,
-    dateTime: number
+    dateTime: string
 }
 
-export type UpdateAmount = {type: "UPDATE_AMOUNT", payload:number}
+export type UpdateTransactionId = {type: "UPDATE_TRANSACTION_ID", payload:string}
+export type UpdateAmount = {type: "UPDATE_AMOUNT", payload:string}
 export type UpdateSend = {type: "UPDATE_SEND", payload:boolean}
-export type UpdateAccountId = {type: "UPDATE_ACCOUNT_ID", payload: number}
+export type UpdateAccountId = {type: "UPDATE_ACCOUNT_ID", payload: string}
 export type UpdateAccountEmail = {type: "UPDATE_ACCOUNT_EMAIL", payload: string}
-export type UpdateDateTime = {type: "UPDATE_DATE_TIME", payload: number}
+export type UpdateDateTime = {type: "UPDATE_DATE_TIME", payload: string}
 
-export type TransactionFormActions = UpdateAmount | UpdateSend | UpdateAccountId | UpdateAccountEmail | UpdateDateTime
+export type TransactionFormActions = UpdateTransactionId | UpdateAmount | UpdateSend | UpdateAccountId | UpdateAccountEmail | UpdateDateTime
 
 export function TransactionFormReducer(state: TransactionFormState, action: TransactionFormActions):TransactionFormState{
 
     const nextState: TransactionFormState = JSON.parse(JSON.stringify(state));
     switch(action.type){
+        case "UPDATE_TRANSACTION_ID":{
+            nextState.transactionId = action.payload;
+            return nextState
+        }
         case "UPDATE_AMOUNT":{
             nextState.amount = action.payload;
             return nextState

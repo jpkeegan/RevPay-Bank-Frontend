@@ -1,7 +1,7 @@
-import { TransactionFormState } from "../transaction-form-reducer";
-
+import { TransactionFormState } from "../reducers/transaction-form-reducer";
+const url = "http://127.0.0.1:8080/";
 export async function createTransaction(params:TransactionFormState):Promise<TransactionFormState> {
-    const httpResponse = await fetch("http://localhost:8080/transaction", {
+    const httpResponse = await fetch(url+ "transaction", {
         method:"POST",
         body:JSON.stringify(params),
         headers:{"Content-Type":"application/json"}
@@ -11,7 +11,7 @@ export async function createTransaction(params:TransactionFormState):Promise<Tra
 }
 
 export async function getAllTransactions():Promise<TransactionFormState[]> {
-    const httpResponse = await fetch("http://localhost:8080/transaction", {
+    const httpResponse = await fetch(url+"transaction", {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -20,7 +20,7 @@ export async function getAllTransactions():Promise<TransactionFormState[]> {
 }
 
 export async function getTransactionById(params:number):Promise<TransactionFormState[]> {
-    const httpResponse = await fetch("http://localhost:8080/transaction/" + params, {
+    const httpResponse = await fetch(url+ "transaction/" + params, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -29,7 +29,7 @@ export async function getTransactionById(params:number):Promise<TransactionFormS
 }
 
 export async function editTransaction(params:TransactionFormState):Promise<TransactionFormState> {
-    const httpResponse = await fetch("http://localhost:8080/transaction", {
+    const httpResponse = await fetch(url+ "transaction", {
         method:"PUT",
         body:JSON.stringify(params),
         headers:{"Content-Type":"application/json"}
@@ -39,7 +39,7 @@ export async function editTransaction(params:TransactionFormState):Promise<Trans
 }
 
 export async function deleteTransaction(params:number):Promise<boolean> {
-    const httpResponse = await fetch("http://localhost:8080/transaction/" + params, {
+    const httpResponse = await fetch(url + "transaction/" + params, {
         method:"DELETE",
         headers:{"Content-Type":"application/json"}
     });
