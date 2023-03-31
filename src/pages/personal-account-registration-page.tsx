@@ -111,7 +111,7 @@ export function PersonalRegistrationPage(){
         localStorage.setItem("businessAccount",String(returnedUser.businessAccount));
 
         alert("Registration Successful!!!");
-        navigation("/");
+        navigation("/home");
     }
 
     return <>
