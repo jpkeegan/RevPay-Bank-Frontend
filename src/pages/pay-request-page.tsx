@@ -60,7 +60,7 @@ export function PayRequestPage(){
 
         
         createTransaction(finalStateTransaction);
-        router("/");
+        router("/home");
     }
     // event handler for request payment
     function handleRequest(data: UserAccountReturnInfo){
@@ -74,12 +74,12 @@ export function PayRequestPage(){
         }
 
         createTransaction(finalStateTransaction);
-        router("/");
+        router("/home");
     }
     return(
         <div className="container">
             <div className="nav-bar-container">
-                    <NavBar left={[{text:"Home",callback:()=>{router("/")}}]}
+                    <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
                 right={[
                 {text:"Add Business",callback:()=>{router("/business/new")}},
                 {text:"Business Loan",callback:()=>{router("/loan")}}]} />
