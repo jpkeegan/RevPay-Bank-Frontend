@@ -27,7 +27,7 @@ export const businessFormDef:string = `{
 export type BusinessEntity = {
     address:             string;
     email:               string;
-    isBusinessAccount: boolean;
+    businessAccount: boolean;
     name:                string;
     password:            string;
     phone_number:        number;
@@ -66,7 +66,7 @@ export type UserAccount={
     phoneNumber:number
     name:string
     address:string
-    isBusinessAccount:boolean
+    businessAccount:boolean
 }
 
 export type BusinessDetails={

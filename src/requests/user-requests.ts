@@ -5,7 +5,7 @@ const url:string = "http://127.0.0.1:8080"
 export async function insertBusinessAccount(params:BusinessEntity):Promise<UserAccount>{
     console.log(params.isForProfit)
     const account:UserAccount = {accountId:-1, username:params.username, password:params.password,email:params.email,
-        phoneNumber:params.phone_number,name:params.name,address:params.address,isBusinessAccount:true}
+        phoneNumber:params.phone_number,name:params.name,address:params.address,businessAccount:true}
     const httpResponse = await fetch(url+"/userAccount",{
         method:"POST",
         body:JSON.stringify(account),
