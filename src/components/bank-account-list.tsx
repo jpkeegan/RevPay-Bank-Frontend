@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router"
+import { deleteBankAccount } from "../requests/bank-account-requests"
 import { BankAccount } from "../requests/bank-account-requests"
 
 type BankAccountsListProps = {
@@ -5,6 +7,13 @@ type BankAccountsListProps = {
 }
 
 export function BankAccountsList(props: BankAccountsListProps) {
+
+    const navigate = useNavigate();
+
+    async function deleteButton(id: number) {
+        await deleteBankAccount(id);
+        navigate('/home');
+    }
 
     return <>
     
@@ -15,7 +24,9 @@ export function BankAccountsList(props: BankAccountsListProps) {
                 Routing Number: {ba.routingNumber}<br/>
                 Account Number: {ba.accountNumber}<br/>
                 Balance: {ba.balance}<br/>
-                Account ID: {ba.accountId}</li>)}
+                Account ID: {ba.accountId}<br/>
+                <button onClick={()=>deleteButton(ba.bankAccountId)} >Delete</button>
+                </li>)}
 
         </ul>
     
