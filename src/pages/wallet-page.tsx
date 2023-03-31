@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import { BankAccount, getAllBankAccounts } from "../requests/bank-account-requests"
-import { async } from "q";
 import { BankAccountsList } from "../components/bank-account-list";
+import { NavBar } from "../components/nav-bar";
+import { useNavigate } from "react-router";
 
 
 export function WalletPage() {
 
     const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
     const accountId = localStorage.getItem("accountId");
+    const router = useNavigate();
 
     useEffect(()=>{
         (async ()=>{
@@ -16,7 +18,18 @@ export function WalletPage() {
         })();
     }, [])
 
+    function addBankButton() {
+        router("/bankAccount/add");
+    }
+
     return <>
+
+        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
+            right={[
+            {text:"Add Business",callback:()=>{router("/business/new")}},
+            {text:"Business Loan",callback:()=>{router("/loan")}},
+            {text:"Wallet",callback:()=>{router("/wallet")}},
+            {text:"Log Out",callback:()=>{router("/logout")}}]} />
     
         <h3>Wallet Page!</h3>
         <h4>Current RevPay Wallet Balance: $__.__</h4>
@@ -24,7 +37,7 @@ export function WalletPage() {
 
         <h5>Banks List:</h5>
         <BankAccountsList bankAccounts={bankAccounts} />
-        <button >Add Bank</button>
+        <button onClick={addBankButton}>Add Bank</button>
 
         <h5>Cards List:</h5>
 

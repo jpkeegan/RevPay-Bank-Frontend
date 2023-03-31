@@ -7,12 +7,19 @@ import ".././styles/home-page-styles.css";
 export type BankAccountInfo = {
     routingNumber: number,
     accountNumber: number,
+    accountId: number
 }
 
 export function BankAccountForm() {
-    const router = useNavigate();
 
-    const [bankAccount, setBankAccount] = useState<BankAccountInfo>({ routingNumber: 0, accountNumber: 0 });
+    const router = useNavigate();
+    const accountId = Number(localStorage.getItem("accountId"));
+
+    const [bankAccount, setBankAccount] = useState<BankAccountInfo>({ 
+        routingNumber: 0, 
+        accountNumber: 0, 
+        accountId: accountId
+    });
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
@@ -26,8 +33,13 @@ export function BankAccountForm() {
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         await addBankAccount(bankAccount);
-        setBankAccount({ routingNumber: 0, accountNumber: 0 })
-        alert('Bank account successfully linked')
+        setBankAccount({ 
+            routingNumber: bankAccount.routingNumber, 
+            accountNumber: bankAccount.accountNumber,
+            accountId: bankAccount.accountId 
+        })
+        alert('Bank account successfully linked');
+        router('/wallet');
     }
 
     return <>

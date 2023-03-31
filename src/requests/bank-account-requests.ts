@@ -50,7 +50,7 @@ export async function deleteBankAccount(id: number): Promise<void> {
 }
 
 export async function getAllBankAccounts(): Promise<BankAccount[]> {
-    const httpResponse = await fetch(url + "bankAccounts");
+    const httpResponse = await fetch(url + "/bankAccounts");
     const bankAccounts: BankAccount[] = await httpResponse.json();
     return bankAccounts;
 }
