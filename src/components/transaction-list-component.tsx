@@ -1,8 +1,9 @@
 
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { TransactionReturnInfo } from "../requests/transaction-requests";
 
 
-export function TransactionList(Props:{transactionArray: TransactionFormState[]}){
+export function TransactionList(Props:{transactionArray: TransactionReturnInfo[]}){
     // basically takes in transaction list as props and spreads them out on a table
 
     // converts date in props which is a number to a string to make it look nice

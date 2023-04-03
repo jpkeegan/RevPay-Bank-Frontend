@@ -3,30 +3,37 @@ import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { getAllTransactions, getAllUserTransactions } from "../requests/transaction-requests";
+import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getAllUserTransactionsByTimeRange } from "../requests/transaction-requests";
 
 
 export function HomePage() {
     const router = useNavigate();
-    let accountId = 0;
+    let accountId = Number(localStorage.getItem("accountId"));
+    let listCallBool = false;
+    const [time, setTime] = useState(0);
+    const [list, setList] = useState<TransactionReturnInfo[]>([{transactionId: "",
+    amount: "",
+    send: false,
+    accountId: "",
+    senderAccountId: accountId,
+    accountEmail: "",
+    dateTime: ""}]);
     useEffect(()=>{
 
         const accountIDCheck = localStorage.getItem("accountId");
           if(!accountIDCheck){
             alert("You have to sign in.")
             router("/")
-          }else{
-            accountId = Number(accountIDCheck);
-
           }
-        });
+    });
 
-    const initialStateTransaction: TransactionFormState[] = [
+    const initialStateTransaction: TransactionReturnInfo[] = [
         {
             transactionId: "",
             amount: "",
             send: false,
             accountId: "",
+            senderAccountId: accountId,
             accountEmail: "",
             dateTime: ""
         }
@@ -41,7 +48,26 @@ export function HomePage() {
         }
 
         fetchData();
-      }, []);
+    }, []);
+    
+    function handleDateTimeAction(event:React.ChangeEvent<HTMLInputElement>){
+        let unixEpochDate = +new Date(event.target.value);
+        console.log(unixEpochDate);
+        setTime(unixEpochDate);
+        
+    }
+
+    async function handleListPopulate(){
+        console.log(accountId);
+        const transactionList: TransactionReturnInfo[] = await getAllUserTransactionsByTimeRange(accountId,time);
+        console.log(transactionList);
+        if(transactionList){
+            setList(transactionList);
+            listCallBool = true;
+        }
+        
+    }
+
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
@@ -53,6 +79,10 @@ export function HomePage() {
             ]} />
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
-        <TransactionList transactionArray={data}/>
+        <TransactionList transactionArray={data}/><br /><br /><br />
+        <label htmlFor="month">List Transactions based on month</label><br />
+        <input type="month" id="month" min="2000-01" onChange={handleDateTimeAction} /><br/><br/><br/>
+        <button onClick={handleListPopulate}>List</button>
+        <TransactionList transactionArray={list}/>
     </>
 }

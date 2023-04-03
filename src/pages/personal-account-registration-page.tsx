@@ -54,7 +54,6 @@ export function PersonalRegistrationPage(){
     }
 
     async function handleRegistrationParametersAction(){
-        console.log(trackerState);
         let specialCharacterBool = false;
         let plength = trackerState.confirmedPassword.length;
         let existingUsers = await getAllUsernames();
