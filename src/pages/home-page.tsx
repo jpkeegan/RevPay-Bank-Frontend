@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { BusinessLoansList } from "../components/business-loans-list";
 import { getAllTransactions, getAllUserTransactions } from "../requests/transaction-requests";
 
 
@@ -42,6 +43,8 @@ export function HomePage() {
 
         fetchData();
       }, []);
+
+    const isBusinessAccount = localStorage.getItem("businessAccount") === "true";
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
@@ -55,5 +58,9 @@ export function HomePage() {
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
         <TransactionList transactionArray={data}/>
+        
+        <div>
+        {isBusinessAccount && <BusinessLoansList/>}
+        </div>
     </>
 }

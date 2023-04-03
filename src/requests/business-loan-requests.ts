@@ -61,3 +61,9 @@ export async function deleteBusinessLoan(businessLoanId: number): Promise<boolea
     const bool: boolean = await httpResponse.json();
     return bool;
 }
+
+export async function getLoansByBusinessId(businessId: number): Promise<BusinessLoan[]> {
+    const httpResponse = await fetch(url + "businessloans/business/" + businessId);
+    const businessLoans: BusinessLoan[] = await httpResponse.json();
+    return businessLoans;
+};
