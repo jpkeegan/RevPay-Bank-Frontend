@@ -3,11 +3,12 @@ import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { getAllTransactions } from "../requests/transaction-requests";
+import { getAllTransactions, getAllUserTransactions } from "../requests/transaction-requests";
 
 
 export function HomePage() {
     const router = useNavigate();
+    let accountId = 0;
     useEffect(()=>{
 
         const accountIDCheck = localStorage.getItem("accountId");
@@ -15,7 +16,8 @@ export function HomePage() {
             alert("You have to sign in.")
             router("/")
           }else{
-            //Else is technically not necessary, but I use it to load local storage.
+            accountId = Number(accountIDCheck);
+
           }
         });
 
@@ -34,7 +36,7 @@ export function HomePage() {
         
 
         async function fetchData() {
-            const response = await getAllTransactions();
+            const response = await getAllUserTransactions(accountId);
             setData(response)
         }
 
