@@ -1,6 +1,7 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { getAllTransactions, getTransactionById } from "./transaction-requests";
+import { getAllTransactions, getAllUserTransactions, getTransactionById } from "./transaction-requests";
 import { BusinessDetails, BusinessEntity, BusinessInfo, UserAccount } from "./types"
+import { UserAccountUpdate } from "./user-account-requests";
 import { addWallet, getWalletByAccountId, Wallet } from "./wallet-requests";
 
 const url:string = "http://127.0.0.1:8080"
@@ -32,13 +33,38 @@ export async function insertBusiness(params:BusinessDetails):Promise<BusinessDet
     return busDetail
 }
 
+export async function updateBusinessAccount(params:BusinessInfo):Promise<UserAccount>{
+    console.log(params.isForProfit)
+    const account:UserAccountUpdate = {
+        username: params.username,
+        password: "",
+        email: "",
+        phoneNumber: 0,
+        name: "",
+        address: "",
+        businessAccount: false,
+        oldUsername: ""
+    }
+    const httpResponse = await fetch(url+"/userAccount",{
+        method:"POST",
+        body:JSON.stringify(account),
+        headers:{"Content-Type":"application/json"}
+    });
+    const newAccount:UserAccount = await httpResponse.json();
+    const busDetail:BusinessDetails = {businessId:-1,bin:params.bin,
+        ein:params.ein,isForProfit:params.isForProfit,accountId:newAccount.accountId}
+    const newBusDetail:BusinessDetails = await insertBusiness(busDetail);
+    await addWallet({balance:0,accountId:newAccount.accountId});
+    return newAccount
+}
+
 export async function getBusiness(params:number):Promise<BusinessInfo>{
     const httpResponse = await fetch(url+"/userAccount/"+params);
     const httpResponse2 = await fetch(url+"/businesses/account/"+params);
     const account:UserAccount = await httpResponse.json();
     const business:BusinessDetails = await httpResponse2.json();
     const wallet:Wallet = await getWalletByAccountId(params);
-    const trans:TransactionFormState[] = await getAllTransactions();
+    //const trans:TransactionFormState[] = await getAllUserTransactions(params);
     console.log("reply is"+business.isForProfit)
     const businessInfo:BusinessInfo = {
         businessId: business.businessId,
@@ -53,7 +79,7 @@ export async function getBusiness(params:number):Promise<BusinessInfo>{
         ein: business.ein,
         isForProfit: business.isForProfit,
         wallet: wallet,
-        transactions: trans.filter(t=>t.accountId===business.accountId.toString())
+        //transactions: trans.filter(t=>t.accountId===business.accountId.toString())
     }
     return businessInfo
 }
