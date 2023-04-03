@@ -4,6 +4,9 @@ import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getAllUserTransactionsByTimeRange } from "../requests/transaction-requests";
+import { BusinessLoansList } from "../components/business-loans-list";
+
+
 
 
 export function HomePage() {
@@ -68,9 +71,13 @@ export function HomePage() {
         
     }
 
+
+    const isBusinessAccount = localStorage.getItem("businessAccount") === "true";
+
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
+                ...(localStorage.getItem("businessAccount")?[{text:"My Business",callback:()=>router("/businesses/"+localStorage.getItem("accountId"))}]:[]),
                 { text: "Add Business", callback: () => { router("/business/new") } },
                 { text: "Business Loan", callback: () => { router("/loan") } },
                 { text: "Wallet", callback: () => { router("/wallet") } },
@@ -79,10 +86,15 @@ export function HomePage() {
             ]} />
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
+
         <TransactionList transactionArray={data}/><br /><br /><br />
         <label htmlFor="month">List Transactions based on month</label><br />
         <input type="month" id="month" min="2000-01" onChange={handleDateTimeAction} /><br/><br/><br/>
         <button onClick={handleListPopulate}>List</button>
-        <TransactionList transactionArray={list}/>
+        <TransactionList transactionArray={list}/>        
+        <div>
+        {isBusinessAccount && <BusinessLoansList/>}
+        </div>
+
     </>
 }
