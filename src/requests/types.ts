@@ -26,12 +26,8 @@ export const businessFormDef:string = `{
 }`
 
 export const businessUpdateDef:string=`{
-    "updateBusiness":{
-        "address":"Type address here",
-        "email":"example@example.com",
-        "name":"Type name here",
-        "phoneNumber":4062539687,
-        "username":"Alias for account",
+    "updateBusinessDetails":{
+        
         "bin":0,
         "ein":0
     }
@@ -87,7 +83,7 @@ export type BusinessDetails={
     businessId:number
     bin:number
     ein:number
-    isForProfit:boolean
+    forProfit:boolean
     accountId:number
 }
 
@@ -102,8 +98,8 @@ export type BusinessInfo = {
     username:            string;
     bin:                 number;
     ein:                 number;
-    isForProfit:       boolean;
+    forProfit:       boolean;
     wallet:             Wallet;
-    //transactions:  TransactionFormState[];
+    transactions:  TransactionFormState[];
 }
 

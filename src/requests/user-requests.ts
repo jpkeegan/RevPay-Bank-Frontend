@@ -17,7 +17,7 @@ export async function insertBusinessAccount(params:BusinessEntity):Promise<UserA
     });
     const newAccount:UserAccount = await httpResponse.json();
     const busDetail:BusinessDetails = {businessId:-1,bin:params.bin,
-        ein:params.ein,isForProfit:params.isForProfit,accountId:newAccount.accountId}
+        ein:params.ein,forProfit:params.isForProfit,accountId:newAccount.accountId}
     const newBusDetail:BusinessDetails = await insertBusiness(busDetail);
     await addWallet({balance:0,accountId:newAccount.accountId});
     return newAccount
@@ -33,29 +33,14 @@ export async function insertBusiness(params:BusinessDetails):Promise<BusinessDet
     return busDetail
 }
 
-export async function updateBusinessAccount(params:BusinessInfo):Promise<UserAccount>{
-    console.log(params.isForProfit)
-    const account:UserAccountUpdate = {
-        username: params.username,
-        password: "",
-        email: "",
-        phoneNumber: 0,
-        name: "",
-        address: "",
-        businessAccount: false,
-        oldUsername: ""
-    }
-    const httpResponse = await fetch(url+"/userAccount",{
-        method:"POST",
-        body:JSON.stringify(account),
+export async function updateBusinessAccount(params:BusinessDetails):Promise<BusinessDetails>{
+    const httpResponse = await fetch(url+"/businesses",{
+        method:"PUT",
+        body:JSON.stringify(params),
         headers:{"Content-Type":"application/json"}
     });
-    const newAccount:UserAccount = await httpResponse.json();
-    const busDetail:BusinessDetails = {businessId:-1,bin:params.bin,
-        ein:params.ein,isForProfit:params.isForProfit,accountId:newAccount.accountId}
-    const newBusDetail:BusinessDetails = await insertBusiness(busDetail);
-    await addWallet({balance:0,accountId:newAccount.accountId});
-    return newAccount
+    const newBusDetail:BusinessDetails = await httpResponse.json();
+    return newBusDetail
 }
 
 export async function getBusiness(params:number):Promise<BusinessInfo>{
@@ -65,7 +50,7 @@ export async function getBusiness(params:number):Promise<BusinessInfo>{
     const business:BusinessDetails = await httpResponse2.json();
     const wallet:Wallet = await getWalletByAccountId(params);
     const trans:TransactionFormState[] = await getAllUserTransactions(params);
-    console.log("reply is"+business.isForProfit)
+    console.log("reply is"+business.forProfit)
     const businessInfo:BusinessInfo = {
         businessId: business.businessId,
         accountId: business.accountId,
@@ -77,9 +62,9 @@ export async function getBusiness(params:number):Promise<BusinessInfo>{
         username: account.username,
         bin: business.bin,
         ein: business.ein,
-        isForProfit: business.isForProfit,
+        forProfit: business.forProfit,
         wallet: wallet,
-        //transactions: trans
+        transactions: trans
     }
     return businessInfo
 }
