@@ -3,12 +3,13 @@ import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { getAllTransactions } from "../requests/transaction-requests";
 import { BusinessLoansList } from "../components/business-loans-list";
+import { getAllTransactions, getAllUserTransactions } from "../requests/transaction-requests";
 
 
 export function HomePage() {
     const router = useNavigate();
+    let accountId = 0;
     useEffect(()=>{
 
         const accountIDCheck = localStorage.getItem("accountId");
@@ -16,7 +17,8 @@ export function HomePage() {
             alert("You have to sign in.")
             router("/")
           }else{
-            //Else is technically not necessary, but I use it to load local storage.
+            accountId = Number(accountIDCheck);
+
           }
         });
 
@@ -35,7 +37,7 @@ export function HomePage() {
         
 
         async function fetchData() {
-            const response = await getAllTransactions();
+            const response = await getAllUserTransactions(accountId);
             setData(response)
         }
 
@@ -46,6 +48,7 @@ export function HomePage() {
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
+                ...(localStorage.getItem("businessAccount")?[{text:"My Business",callback:()=>router("/businesses/"+localStorage.getItem("accountId"))}]:[]),
                 { text: "Add Business", callback: () => { router("/business/new") } },
                 { text: "Business Loan", callback: () => { router("/loan") } },
                 { text: "Wallet", callback: () => { router("/wallet") } },

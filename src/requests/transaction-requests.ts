@@ -19,6 +19,16 @@ export async function getAllTransactions():Promise<TransactionFormState[]> {
     return transactions;
 }
 
+//This will get all transactions related to the user
+export async function getAllUserTransactions(params:number):Promise<TransactionFormState[]> {
+    const httpResponse = await fetch(url+ "transaction/account/" + params, {
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+    });
+    const transactions : TransactionFormState[] = await httpResponse.json();
+    return transactions;
+}
+
 export async function getTransactionById(params:number):Promise<TransactionFormState[]> {
     const httpResponse = await fetch(url+ "transaction/" + params, {
         method:"GET",
