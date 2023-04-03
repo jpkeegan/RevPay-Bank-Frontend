@@ -1,3 +1,6 @@
+import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { Wallet } from "./wallet-requests";
+
 export const businessForm:string = `{
     "address":"",
     "email":"",
@@ -75,4 +78,20 @@ export type BusinessDetails={
     ein:number
     isForProfit:boolean
     accountId:number
+}
+
+export type BusinessInfo = {
+    businessId:          number;
+    accountId:           number;
+    address:             string;
+    email:               string;
+    businessAccount: boolean;
+    name:                string;
+    phone_number:        number;
+    username:            string;
+    bin:                 number;
+    ein:                 number;
+    isForProfit:       boolean;
+    wallet:             Wallet;
+    transactions:  TransactionFormState[];
 }

@@ -20,6 +20,7 @@ export function AddBusinessPage(){
     const createMutation = useMutation(insertBusinessAccount, {
         onSuccess: () => {
             console.log("success")
+            router("/home")
         } 
     });
     async function submitBusiness(form:BusinessForm){

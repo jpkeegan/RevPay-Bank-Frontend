@@ -10,6 +10,7 @@ import { PersonalRegistrationPage } from './pages/personal-account-registration-
 import { SignInPage } from './pages/sign-in-page';
 import { WalletPage } from './pages/wallet-page';
 import { AccountSettings } from './pages/account-settings';
+import { BusinessPage } from './pages/business-page';
 
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ function App() {
           <Route path={'/transaction'} element={<PayRequestPage/>}/>
           <Route path={'/home'} element={<HomePage/>}/>
           <Route path={'/business/new'} element={<AddBusinessPage/>}/>
+          <Route path={'/business/:id'} element={<BusinessPage/>}/>
           <Route path={'/'} element={<SignInPage/>}/>
           <Route path={'/registration'} element={<PersonalRegistrationPage/>}/>
           {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
