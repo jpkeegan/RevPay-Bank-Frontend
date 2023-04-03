@@ -95,3 +95,18 @@ export type BusinessInfo = {
     wallet:             Wallet;
     transactions:  TransactionFormState[];
 }
+
+export type BusinessUpdate = {
+    businessId:          number;
+    accountId:           number;
+    address:             string;
+    email:               string;
+    businessAccount: boolean;
+    name:                string;
+    password:              string;
+    phone_number:        number;
+    username:            string;
+    bin:                 number;
+    ein:                 number;
+    isForProfit:       boolean;
+}

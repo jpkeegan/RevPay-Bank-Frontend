@@ -18,14 +18,25 @@ export function BusinessPage(){
     if(isError){
         return <p>OH NO THERE WAS A PROBLEM</p>
     }
-    
+    console.log(data);
     return<>
-        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
-        right={[]} />
+        <NavBar left={[
+            {text:"Home",callback:()=>{router("/home")}},
+            { text: "Log Out", callback: () => { router("/logout") } }
+        ]}
+        right={[
+            { text: "Apply for Loan", callback: () => { router("/loan") } },
+            {text:"Wallet Balance:"+data?.wallet.balance,callback:()=>{router("/wallet")}},
+            {text:"Update",callback:()=>{router("/business/"+id)}}
+            ]} />
         <div>
-            <h1>business page</h1>
-            <div>{data?.name}</div>
-            <div>{data?.username}</div>
+            <h1>{data?.name}</h1>
+            <div>Address: {data?.address}</div>
+            <div>Email: {data?.email}</div>
+            <div>
+                {/* {data?.transactions.map(t=><div><h3>{t.accountEmail}</h3><h3>{t.amount}</h3><h3>{t.dateTime}</h3></div>
+                    )} */}
+            </div>
         </div>
         
     </>

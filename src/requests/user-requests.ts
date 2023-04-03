@@ -39,8 +39,7 @@ export async function getBusiness(params:number):Promise<BusinessInfo>{
     const business:BusinessDetails = await httpResponse2.json();
     const wallet:Wallet = await getWalletByAccountId(params);
     const trans:TransactionFormState[] = await getAllTransactions();
-    
-    console.log("reply is"+trans)
+    console.log("reply is"+business.isForProfit)
     const businessInfo:BusinessInfo = {
         businessId: business.businessId,
         accountId: business.accountId,

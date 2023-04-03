@@ -11,6 +11,8 @@ import { SignInPage } from './pages/sign-in-page';
 import { WalletPage } from './pages/wallet-page';
 import { AccountSettings } from './pages/account-settings';
 import { BusinessPage } from './pages/business-page';
+import { CreateBusinessLoanPage } from './pages/create-business-loan-page';
+import { UpdateBusinessPage } from './pages/update-business-page';
 
 
 const queryClient = new QueryClient();
@@ -24,10 +26,11 @@ function App() {
           <Route path={'/transaction'} element={<PayRequestPage/>}/>
           <Route path={'/home'} element={<HomePage/>}/>
           <Route path={'/business/new'} element={<AddBusinessPage/>}/>
-          <Route path={'/business/:id'} element={<BusinessPage/>}/>
+          <Route path={'/business/:id'} element={<UpdateBusinessPage/>}/>
+          <Route path={'/businesses/:id'} element={<BusinessPage/>}/>
           <Route path={'/'} element={<SignInPage/>}/>
           <Route path={'/registration'} element={<PersonalRegistrationPage/>}/>
-          {/* <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/> */}
+          <Route path={'/loan'} element={<CreateBusinessLoanPage/>}/>
           <Route path={'/wallet'} element={<WalletPage/>} />
           <Route path='/logout' element={<LogOut/>}/>
           <Route path='/settings' element={<AccountSettings/>}/>
