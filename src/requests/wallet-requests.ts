@@ -29,7 +29,7 @@ export const addWallet = async (newWallet: AddWalletType) => {
 };
 
 export const updateWallet = async (updatedWallet: Wallet) => {
-    const response = await fetch(`${url}/wallet`, {
+    const response = await fetch(`${url}/wallet/${updatedWallet.walletId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
