@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionFormReducer, TransactionFormState } from "../reducers/transaction-form-reducer";
-import { createTransaction } from "../requests/transaction-requests";
+import { TransactionReturnInfo, createTransaction } from "../requests/transaction-requests";
 import { getAllUsers, UserAccountReturnInfo } from "../requests/user-account-requests";
 import ".././styles/home-page-styles.css";
 
@@ -24,10 +24,10 @@ export function PayRequestPage() {
 
     // initial state of transaction to be created
     const initialStateTransaction: TransactionFormState = {
-        transactionId: "",
         amount: "",
         send: false,
         accountId: "",
+        senderAccountId:0,
         accountEmail: "",
         dateTime: ""
     }
@@ -36,6 +36,7 @@ export function PayRequestPage() {
     const [data, setData] = useState(initialStateUser);
     const [amount, setAmount] = useState("");
     const [search, setSearch] = useState("");
+    let accountId:number = Number(localStorage.getItem("accountId"));
 
     //ended up not using the reducer
     // const [FormState, dispatchForm] = useReducer(TransactionFormReducer, initialStateTransaction);
@@ -55,34 +56,39 @@ export function PayRequestPage() {
         fetchData();
     }, []);
     // event handler for pay button
-    function handlePay(data: UserAccountReturnInfo, amount: string) {
+    async function handlePay(data: UserAccountReturnInfo) {
         //form
+        console.log(accountId);
         const finalStateTransaction: TransactionFormState = {
-            transactionId: Math.floor(Math.random() * 1000).toString(),
             amount: amount,
             send: true,// difference
             accountId: data.accountId.toString(),
+            senderAccountId: accountId,
             accountEmail: data.email,
             dateTime: Date.now().toString()
         }
 
 
-        createTransaction(finalStateTransaction);
-        router("/home");
+        const returnedTransaction:TransactionReturnInfo = await createTransaction(finalStateTransaction);
+        if(returnedTransaction){
+            router("/home");
+        }
     }
     // event handler for request payment
-    function handleRequest(data: UserAccountReturnInfo) {
+    async function handleRequest(data: UserAccountReturnInfo) {
         const finalStateTransaction: TransactionFormState = {
-            transactionId: Math.floor(Math.random() * 1000).toString(),
             amount: amount,
             send: false,//difference
             accountId: data.accountId.toString(),
+            senderAccountId: accountId,
             accountEmail: data.email,
             dateTime: Date.now().toString()
         }
-
-        createTransaction(finalStateTransaction);
-        router("/home");
+        const returnedTransaction:TransactionReturnInfo = await createTransaction(finalStateTransaction);
+        if(returnedTransaction){
+            router("/home");
+        }
+        
     }
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
@@ -120,7 +126,7 @@ export function PayRequestPage() {
                                         <tr className="pay-request-list-table-items" key={user.accountId}>
                                             <td style={{ textAlign: 'center', padding: '8px'  }}>{user.name}</td>
                                             <td style={{ textAlign: 'center', padding: '8px'  }}>
-                                                <button style={{ marginRight: '10px' }} onClick={() => handlePay(user, amount)}>Pay</button>
+                                                <button style={{ marginRight: '10px' }} onClick={() => handlePay(user)}>Pay</button>
                                                 <button onClick={() => handleRequest(user)}>Request</button>
                                             </td>
                                             {/* usestate to set the amount of money */}
