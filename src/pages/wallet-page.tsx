@@ -45,7 +45,8 @@ export function WalletPage() {
     
         <h3>Wallet Page!</h3>
         <h4>Current RevPay Wallet Balance: ${wallet.balance}</h4>
-        <button>Add Money to RevPay Wallet</button>
+
+        <button onClick={()=>router("/wallet/add")}>Add Money to RevPay Wallet</button>
 
         <h5>Banks List:</h5>
         <BankAccountsList bankAccounts={bankAccounts} />
