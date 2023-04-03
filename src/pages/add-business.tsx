@@ -13,13 +13,16 @@ const initState:CompsCheckedState = {
     compsChecked:[{id:1,checked:false,about:"Non Profit?"}]
 }
 
+
 export function AddBusinessPage(){
+    
     const [bools, setBools] = useState(initState);
     const router = useNavigate();
 
     const createMutation = useMutation(insertBusinessAccount, {
         onSuccess: () => {
             console.log("success")
+            router("/home")
         } 
     });
     async function submitBusiness(form:BusinessForm){

@@ -45,6 +45,7 @@ export function HomePage() {
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
+                ...(localStorage.getItem("businessAccount")?[{text:"My Business",callback:()=>router("/businesses/"+localStorage.getItem("accountId"))}]:[]),
                 { text: "Add Business", callback: () => { router("/business/new") } },
                 { text: "Business Loan", callback: () => { router("/loan") } },
                 { text: "Wallet", callback: () => { router("/wallet") } },
