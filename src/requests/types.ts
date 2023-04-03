@@ -1,4 +1,5 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { TransactionReturnInfo } from "./transaction-requests";
 import { Wallet } from "./wallet-requests";
 
 export const businessForm:string = `{
@@ -100,6 +101,6 @@ export type BusinessInfo = {
     ein:                 number;
     forProfit:       boolean;
     wallet:             Wallet;
-    transactions:  TransactionFormState[];
+    transactions:  TransactionReturnInfo[];
 }
 

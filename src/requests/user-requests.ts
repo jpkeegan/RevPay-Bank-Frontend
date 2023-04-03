@@ -1,5 +1,5 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { getAllTransactions, getAllUserTransactions, getTransactionById } from "./transaction-requests";
+import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getTransactionById } from "./transaction-requests";
 import { BusinessDetails, BusinessEntity, BusinessInfo, UserAccount } from "./types"
 import { UserAccountUpdate } from "./user-account-requests";
 import { addWallet, getWalletByAccountId, Wallet } from "./wallet-requests";
@@ -49,7 +49,7 @@ export async function getBusiness(params:number):Promise<BusinessInfo>{
     const account:UserAccount = await httpResponse.json();
     const business:BusinessDetails = await httpResponse2.json();
     const wallet:Wallet = await getWalletByAccountId(params);
-    const trans:TransactionFormState[] = await getAllUserTransactions(params);
+    const trans:TransactionReturnInfo[] = await getAllUserTransactions(params);
     console.log("reply is"+business.forProfit)
     const businessInfo:BusinessInfo = {
         businessId: business.businessId,
