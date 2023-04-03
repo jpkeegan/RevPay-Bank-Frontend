@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { NavBar } from "../components/nav-bar"
+import { TransactionList } from "../components/transaction-list-component";
 import { getBusiness } from "../requests/user-requests";
 
 
@@ -34,8 +35,7 @@ export function BusinessPage(){
             <div>Address: {data?.address}</div>
             <div>Email: {data?.email}</div>
             <div>
-                {/* {data?.transactions.map(t=><div><h3>{t.accountEmail}</h3><h3>{t.amount}</h3><h3>{t.dateTime}</h3></div>
-                    )} */}
+                <TransactionList transactionArray={data!.transactions}/>
             </div>
         </div>
         
