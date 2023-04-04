@@ -82,12 +82,12 @@ export function HomePage() {
             ]} />
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
-        <h1 className="transaction-list-header">List Transactions based on Date</h1>
+        <h1 className="transaction-list-header">List Transactions</h1>
         <TransactionList transactionArray={data}/><br /><br /><br />
         <label htmlFor="month">List Transactions based on Date</label><br />
         <input type="month" id="month" min="2000-01" onChange={handleDateTimeAction} /><br/><br/><br/>
         <button onClick={handleListPopulate}>List</button>
-        <h1 className="transaction-list-header">Transaction List by month</h1>
+        <h1 className="transaction-list-header">Transaction List by Date</h1>
         <TransactionList transactionArray={list}/>        
         <div>
         {isBusinessAccount && <BusinessLoansList/>}
