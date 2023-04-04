@@ -15,8 +15,7 @@ export function CardManagement() {
 
   const [newCard, setNewCard] = useState<Card>({ cardNumber: 0, accountId: 0, credit: false, cardId: 0 });
   const [editingCard, setEditingCard] = useState<Card | null>(null);
-  const currentUserId =  11 //localStorage.getItem("accountId");
-
+  const currentUserId =  Number(localStorage.getItem("accountId"));
 
   const fetchCards = async () => {
     //console.log(currentUserId + " ppp ");
@@ -129,7 +128,7 @@ export function CardManagement() {
 
     if (currentUserId) {
       // Use the current user's ID to create a new card
-      setNewCard({ cardNumber: 0, accountId: Number(currentUserId), credit: false, cardId: 0 });
+      setNewCard({ cardNumber: 0, accountId: currentUserId, credit: false, cardId: 0 });
     } else {
       // Handle the case where there is no current user ID in local storage
       console.log("No current user ID found");
