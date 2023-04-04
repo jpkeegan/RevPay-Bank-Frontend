@@ -1,5 +1,6 @@
+import { connectUrl } from "./types";
 
-const url = "http://127.0.0.1:8080";
+const url = connectUrl;
 
 export type Wallet = {
     walletId: number,

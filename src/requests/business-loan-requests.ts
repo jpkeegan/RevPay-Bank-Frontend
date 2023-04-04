@@ -1,3 +1,4 @@
+import { connectUrl } from "./types";
 
 export type BusinessLoan = {
     loanId: number,
@@ -12,10 +13,10 @@ export type BusinessLoanForm = {
     businessId: number
 }
 
-const url = "http://localhost:8080/";
+const url = connectUrl;
 
 export async function createBusinessLoan(newBusinessLoan: BusinessLoanForm): Promise<BusinessLoan> {
-    const httpResponse = await fetch(url + "businessloans", {
+    const httpResponse = await fetch(url + "/businessloans", {
         method: "POST",
         body: JSON.stringify(newBusinessLoan),
         headers: {
@@ -28,19 +29,19 @@ export async function createBusinessLoan(newBusinessLoan: BusinessLoanForm): Pro
 }
 
 export async function getAllBusinessLoans(): Promise<BusinessLoan[]> {
-    const httpResponse = await fetch(url + "businessloans");
+    const httpResponse = await fetch(url + "/businessloans");
     const businessLoans: BusinessLoan[] = await httpResponse.json();
     return businessLoans;
 }
 
 export async function getBusinessLoanById(businessLoanId: number): Promise<BusinessLoan> {
-    const httpResponse = await fetch(url + "businessloans/" + businessLoanId);
+    const httpResponse = await fetch(url + "/businessloans/" + businessLoanId);
     const businessLoan: BusinessLoan = await httpResponse.json();
     return businessLoan;
 }
 
 export async function updateBusinessLoan(businessLoan: BusinessLoan): Promise<BusinessLoan> {
-    const httpResponse = await fetch(url + "businessloans", {
+    const httpResponse = await fetch(url + "/businessloans", {
         method: "PUT",
         body: JSON.stringify(businessLoan),
         headers: {
@@ -52,7 +53,7 @@ export async function updateBusinessLoan(businessLoan: BusinessLoan): Promise<Bu
 }
 
 export async function deleteBusinessLoan(businessLoanId: number): Promise<boolean> {
-    const httpResponse = await fetch(url + "businessloans/" + businessLoanId, {
+    const httpResponse = await fetch(url + "/businessloans/" + businessLoanId, {
         method: "DELETE",
         headers: {
             "Content-Type":"application/json"
@@ -63,7 +64,7 @@ export async function deleteBusinessLoan(businessLoanId: number): Promise<boolea
 }
 
 export async function getLoansByBusinessId(businessId: number): Promise<BusinessLoan[]> {
-    const httpResponse = await fetch(url + "businessloans/business/" + businessId);
+    const httpResponse = await fetch(url + "/businessloans/business/" + businessId);
     const businessLoans: BusinessLoan[] = await httpResponse.json();
     return businessLoans;
 };

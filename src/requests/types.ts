@@ -3,6 +3,8 @@ import { BusinessLoan } from "./business-loan-requests";
 import { TransactionReturnInfo } from "./transaction-requests";
 import { Wallet } from "./wallet-requests";
 
+export const connectUrl:string = "http://13.57.199.209";
+
 export const businessForm:string = `{
     "address":"",
     "email":"",

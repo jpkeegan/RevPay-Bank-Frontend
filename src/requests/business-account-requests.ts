@@ -1,3 +1,5 @@
+import { connectUrl } from "./types";
+
   
 export type Business = {
   businessId: number;
@@ -7,7 +9,7 @@ export type Business = {
   accountId: number;
 };
   
-const url = "http://127.0.0.1:8080";
+const url = connectUrl;
   
 export async function createBusinessAccount(businessAccount: Business): Promise<Business> {
   const response = await fetch(`${url}/businesses`, {
