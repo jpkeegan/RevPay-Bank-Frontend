@@ -19,7 +19,7 @@ export function TransactionList(Props:{transactionArray: TransactionReturnInfo[]
     return(
             <div className="transaction-list-container">
                 <div className="transaction-list-header-container">
-                    <h1 className="transaction-list-header">Transaction List</h1>
+                    
                 </div>
 
                 <table className="transaction-list-table">
