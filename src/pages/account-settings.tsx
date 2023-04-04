@@ -23,7 +23,7 @@ export function AccountSettings() {
 
 
     function handleSetUsername(event: React.ChangeEvent<HTMLInputElement>) {
-        dispatch({ type: "SET_USERNAME", payload: event.target.value });
+        dispatch({ type: "SET_USERNAME", payload: event.target.value }); 
     }
     function handleSetPassword(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({ type: "SET_PASSWORD", payload: event.target.value });

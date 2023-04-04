@@ -76,3 +76,8 @@ export type BusinessDetails={
     isForProfit:boolean
     accountId:number
 }
+export type Card = {
+    cardNumber: number
+    accountId: number
+    credit: boolean
+}
