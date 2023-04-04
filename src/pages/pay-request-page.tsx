@@ -96,13 +96,14 @@ export function PayRequestPage() {
     }
 
     return <>
+        
+        <div className="nav-bar-container">
         <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
         right={[]} />
-        <div className="nav-bar-container">
-            <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
+            {/* <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
                 right={[
                     { text: "Add Business", callback: () => { router("/business/new") } },
-                    { text: "Business Loan", callback: () => { router("/loan") } }]} />
+                    { text: "Business Loan", callback: () => { router("/loan") } }]} /> */}
         </div>
 
         <div className="centeredDiv" style={{ marginTop: '100px' }}>
