@@ -8,12 +8,14 @@ export type Card = {
 const url = "http://127.0.0.1:8080/";
 
 export async function addCard(newCard: Card):Promise<Card>{
+  console.log(newCard);
     const httpResponse = await fetch(url + "cards", {
         method:"POST",
         body:JSON.stringify(newCard),
         headers:{"Content-Type":"application/json"}
     });
     const card: Card = await httpResponse.json();
+    console.log(card);
     return card;
 }
     

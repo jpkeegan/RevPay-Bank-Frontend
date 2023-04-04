@@ -15,16 +15,16 @@ export function CardManagement() {
 
   const [newCard, setNewCard] = useState<Card>({ cardNumber: 0, accountId: 0, credit: false, cardId: 0 });
   const [editingCard, setEditingCard] = useState<Card | null>(null);
-  const currentUserId =  11 //localStorage.getItem("accountId");
+  const currentUserId =  Number(localStorage.getItem("accountId"));
 
 
   const fetchCards = async () => {
     //console.log(currentUserId + " ppp ");
     if (currentUserId !== null) {
-      const cards = await getAllCardsbyaccountId(currentUserId);
-      console.log(cards + " ppp ");
-      setCards(cards);
-      setCardOrder(cards.map((card) => card.accountId.toString()));
+      const cardReturn = await getAllCardsbyaccountId(currentUserId);
+      console.log(cardReturn + " ppp ");
+      setCards(cardReturn);
+      setCardOrder(cardReturn.map((card) => card.accountId.toString()));
     } else {
       // handle the case where currentUserId is null
     }
@@ -117,6 +117,7 @@ export function CardManagement() {
       return;
     }
   
+    console.log("Before request: " + accountId);
     const addedCard = await addCard({
       cardNumber, accountId, credit,
       cardId: 0
@@ -129,7 +130,9 @@ export function CardManagement() {
 
     if (currentUserId) {
       // Use the current user's ID to create a new card
-      setNewCard({ cardNumber: 0, accountId: Number(currentUserId), credit: false, cardId: 0 });
+      console.log("Here: " + currentUserId);
+      setNewCard({ cardNumber: 0, accountId: currentUserId, credit: false, cardId: 0 });
+      console.log(newCard);
     } else {
       // Handle the case where there is no current user ID in local storage
       console.log("No current user ID found");

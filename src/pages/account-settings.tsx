@@ -128,7 +128,7 @@ export function AccountSettings() {
             <input type="text" placeholder={userDetails.email} onChange={handleSetEmail} /> <br />
 
             <label htmlFor="lname">Change Phone Number: </label>
-            <input type="tel" placeholder={userDetails.phoneNumber.toString()} onChange={handleSetPhoneNumber} /> <br />
+            <input type="tel" placeholder={(userDetails.phoneNumber !== null) ? userDetails.phoneNumber.toString() : "0"} onChange={handleSetPhoneNumber} /> <br />
 
             <label htmlFor="fname"> Change Name: </label>
             <input type="text" placeholder={userDetails.name} onChange={handleSetName} /> <br />
