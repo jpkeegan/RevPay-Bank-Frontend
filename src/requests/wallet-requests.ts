@@ -29,7 +29,7 @@ export const addWallet = async (newWallet: AddWalletType) => {
 };
 
 export const updateWallet = async (updatedWallet: Wallet) => {
-    const response = await fetch(`${url}/wallet`, {
+    const response = await fetch(`${url}/wallet/${updatedWallet.walletId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export const updateWallet = async (updatedWallet: Wallet) => {
 export const deleteWallet = async (id: number) => {
     const response = await fetch(`${url}/wallets/${id}`, {
         method: 'DELETE',
-        headers: {"COntent-Type": "application/json"}
+        headers: {"Content-Type": "application/json"}
     });
     return response.ok;
 };

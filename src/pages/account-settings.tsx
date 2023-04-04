@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { NavBar } from "../components/nav-bar";
 import { userRegistrationReducer } from "../reducers/user-registration-reducer";
 import { getAllUsernames, SignInForm, updateUserAccount, UserAccountReturnInfo, UserAccountUpdate, verifyUserAccount } from "../requests/user-account-requests";
 import { initialState } from "./personal-account-registration-page";
@@ -96,6 +97,8 @@ export function AccountSettings() {
     }
 
     return <>
+        <NavBar left={[{text:"Home",callback:()=>{navigation("/home")}}]}
+        right={[]} />
         <h1>Registration Page</h1>
         <fieldset>
             <label htmlFor="username">Change USERNAME: </label>
