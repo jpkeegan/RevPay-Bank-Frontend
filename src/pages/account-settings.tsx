@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/nav-bar";
 import { userRegistrationReducer } from "../reducers/user-registration-reducer";
 import { getAllUsernames, SignInForm, updateUserAccount, UserAccountReturnInfo, UserAccountUpdate, verifyUserAccount } from "../requests/user-account-requests";
@@ -9,22 +9,22 @@ export function AccountSettings() {
 
     const navigation = useNavigate();
     const [trackerState, dispatch] = useReducer(userRegistrationReducer, initialState);
-    useEffect(()=>{
+    useEffect(() => {
 
         const accountIDCheck = localStorage.getItem("accountId");
-          if(!accountIDCheck){
+        if (!accountIDCheck) {
             alert("You have to sign in.")
             navigation("/")
-          }else{
+        } else {
             //Else is technically not necessary, but I use it to load local storage.
-          }
-        });
+        }
+    });
     const accountId = localStorage.getItem("accountId");
     const username = localStorage.getItem("username");
 
 
     function handleSetUsername(event: React.ChangeEvent<HTMLInputElement>) {
-        dispatch({ type: "SET_USERNAME", payload: event.target.value }); 
+        dispatch({ type: "SET_USERNAME", payload: event.target.value });
     }
     function handleSetPassword(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({ type: "SET_PASSWORD", payload: event.target.value });
@@ -97,8 +97,8 @@ export function AccountSettings() {
     }
 
     return <>
-        <NavBar left={[{text:"Home",callback:()=>{navigation("/home")}}]}
-        right={[]} />
+        <NavBar left={[{ text: "Home", callback: () => { navigation("/home") } }]}
+            right={[]} />
         <h1>Registration Page</h1>
         <fieldset>
             <label htmlFor="username">Change USERNAME: </label>
@@ -117,11 +117,14 @@ export function AccountSettings() {
             <input type="text" placeholder="123 Anywhere St." onChange={handleSetAddress} /> <br />
 
         </fieldset>
-
+        <br />
         <label htmlFor="password">Confirm your password: </label>
         <input type="password" placeholder="Password" required onChange={handleSetPassword} /> <br />
-
+        <br />
         <button onClick={handleVerifyAccountSettings}>Update Account</button>
+
+        <br /><br />
+        <Link to='/passwordreset'>Change Password</Link>
 
     </>
 }
