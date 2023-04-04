@@ -1,5 +1,6 @@
 import { UserForm } from "../pages/personal-account-registration-page"
-import { connectUrl } from "./types"
+import { BusinessInfo, connectUrl } from "./types"
+import { getBusiness } from "./user-requests"
 
 export type SignInForm = {
     username: string
@@ -49,15 +50,19 @@ export type Username = {
 
 const url = connectUrl;
 
-export async function verifyUserAccount(login: SignInForm): Promise<UserAccountReturnInfo | FailedLoginReturn> {
+export async function verifyUserAccount(login: SignInForm): Promise<UserAccountReturnInfo | FailedLoginReturn | BusinessInfo> {
     const httpResponse = await fetch(url + "/login", {
         method: "PATCH",
         body: JSON.stringify(login),
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json" 
         }
     });
     const returnUser: UserAccountReturnInfo = await httpResponse.json();
+    if(returnUser.businessAccount){
+        const business:BusinessInfo = await getBusiness(returnUser.accountId);
+        return business;
+    }
     return returnUser;
 }
 
