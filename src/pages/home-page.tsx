@@ -90,6 +90,7 @@ export function HomePage() {
         <h1 className="transaction-list-header">Transaction List by Date</h1>
         <TransactionList transactionArray={list}/>        
         <div>
+        <h3>Business Loans List:</h3>
         {isBusinessAccount && <BusinessLoansList/>}
         </div>
 

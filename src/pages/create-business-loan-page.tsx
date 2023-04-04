@@ -28,7 +28,7 @@ export function CreateBusinessLoanPage() {
         event.preventDefault();
         const newBusinessLoan = await createBusinessLoan(form);
         console.log(newBusinessLoan);
-        navigate("/");
+        navigate("/home");
     }
 
 
