@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BusinessInfo } from "../requests/types";
 import { getByUsername, verifyUserAccount } from "../requests/user-account-requests";
 
 
@@ -32,7 +33,10 @@ export function SignInPage(){
     else{
       localStorage.setItem("accountId",String(results.accountId));
       localStorage.setItem("username",String(results.username)); 
-      localStorage.setItem("businessAccount",String(results.businessAccount));
+      localStorage.setItem("businessAccount",String(results.businessAccount)); //businessAccount
+      if(results.businessAccount){
+        localStorage.setItem("businessId",String((results as BusinessInfo).businessId));
+      }
       navigation("/home");
     }
   }
