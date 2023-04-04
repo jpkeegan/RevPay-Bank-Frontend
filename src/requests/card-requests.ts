@@ -1,3 +1,4 @@
+import { connectUrl } from "./types"
 
 export type Card = {
     cardNumber: number
@@ -5,11 +6,11 @@ export type Card = {
     credit: boolean
     cardId: number
 }
-const url = "http://127.0.0.1:8080/";
+const url = connectUrl;
 
 export async function addCard(newCard: Card):Promise<Card>{
   console.log(newCard);
-    const httpResponse = await fetch(url + "cards", {
+    const httpResponse = await fetch(url + "/cards", {
         method:"POST",
         body:JSON.stringify(newCard),
         headers:{"Content-Type":"application/json"}
@@ -20,7 +21,7 @@ export async function addCard(newCard: Card):Promise<Card>{
 }
     
 export async function updateCard(existingCard:Card):Promise<Card>{
-    const httpResponse = await fetch(url + "cards", {
+    const httpResponse = await fetch(url + "/cards", {
         method:"PUT",
         body:JSON.stringify(existingCard),
         headers:{"Content-Type":"application/json"}
@@ -30,20 +31,20 @@ export async function updateCard(existingCard:Card):Promise<Card>{
 }
 
 export async function getAllCards():Promise<Card[]>{
-    const httpResponse = await fetch(url + "cards");
+    const httpResponse = await fetch(url + "/cards");
     const cards : Card[] = await httpResponse.json();
     return cards;
 }
 
 export async function getAllCardsbyaccountId(accountId: number):Promise<Card[]>{
-    const httpResponse = await fetch(url + "cards/account/" + accountId);
+    const httpResponse = await fetch(url + "/cards/account/" + accountId);
     const cards : Card[] = await httpResponse.json();
     console.log("resposnse is " + httpResponse)
     return cards;
 }
 
 export async function getCardById(cardId: number):Promise<Card>{
-    const httpResponse = await fetch(url + "cards/" + cardId);
+    const httpResponse = await fetch(url + "/cards/" + cardId);
     const card : Card = await httpResponse.json();
     console.log(card)
     return card;
@@ -52,7 +53,7 @@ export async function getCardById(cardId: number):Promise<Card>{
   
 export async function deleteCard(cardId: number): Promise<boolean> {
     try {
-      const httpResponse = await fetch(url + "cards/" + cardId, {
+      const httpResponse = await fetch(url + "/cards/" + cardId, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
