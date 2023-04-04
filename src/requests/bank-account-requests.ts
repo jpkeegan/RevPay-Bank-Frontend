@@ -1,4 +1,5 @@
 import { BankAccountInfo } from "../pages/bank-account-form";
+import { connectUrl } from "./types";
 
 
 export type BankAccount = {
@@ -9,7 +10,7 @@ export type BankAccount = {
     balance: number
 }
 
-export const url = "http://127.0.0.1:8080";
+export const url = connectUrl;
 
 export async function addBankAccount(bankAccount: BankAccountInfo): Promise<BankAccount> {
     const response = await fetch(`${url}/bankAccounts`, {

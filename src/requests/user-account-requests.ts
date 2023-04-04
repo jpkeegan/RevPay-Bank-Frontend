@@ -1,4 +1,5 @@
 import { UserForm } from "../pages/personal-account-registration-page"
+import { connectUrl } from "./types"
 
 export type SignInForm = {
     username: string
@@ -46,10 +47,10 @@ export type Username = {
     username: string
 }
 
-const url = "http://127.0.0.1:8080/";
+const url = connectUrl;
 
 export async function verifyUserAccount(login: SignInForm): Promise<UserAccountReturnInfo | FailedLoginReturn> {
-    const httpResponse = await fetch(url + "login", {
+    const httpResponse = await fetch(url + "/login", {
         method: "PATCH",
         body: JSON.stringify(login),
         headers: {
@@ -61,7 +62,7 @@ export async function verifyUserAccount(login: SignInForm): Promise<UserAccountR
 }
 
 export async function createUserAccount(user: UserForm): Promise<UserAccountReturnInfo> {
-    const httpResponse = await fetch(url + "userAccount", {
+    const httpResponse = await fetch(url + "/userAccount", {
         method: "POST",
         body: JSON.stringify(user),
         headers: {
@@ -73,25 +74,25 @@ export async function createUserAccount(user: UserForm): Promise<UserAccountRetu
 }
 
 export async function getByUsername(username: string): Promise<UserAccountReturnInfo | FailedLoginReturn> {
-    const httpResponse = await fetch(url + "userAccount/" + username);
+    const httpResponse = await fetch(url + "/userAccount/" + username);
     const returnUser: UserAccountReturnInfo = await httpResponse.json();
     return returnUser;
 }
 
 export async function getAllUsers(): Promise<UserAccountReturnInfo[]> {
-    const httpResponse = await fetch(url + "userAccount");
+    const httpResponse = await fetch(url + "/userAccount");
     const returnUser: UserAccountReturnInfo[] = await httpResponse.json();
     return returnUser;
 }
 
 export async function getAllUsernames(): Promise<Username[]> {
-    const httpResponse = await fetch(url + "userAccount");
+    const httpResponse = await fetch(url + "/userAccount");
     const returnUser: Username[] = await httpResponse.json();
     return returnUser;
 }
 
 export async function updateUserAccount(id: number, user: UserAccountUpdate): Promise<UserAccountReturnInfo> {
-    const httpResponse = await fetch(url+`userAccount/${id}`, {
+    const httpResponse = await fetch(url+`/userAccount/${id}`, {
         method: "PUT",
         body: JSON.stringify(user),
         headers: {

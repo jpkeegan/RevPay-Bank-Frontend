@@ -1,11 +1,11 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { BusinessLoan, getLoansByBusinessId } from "./business-loan-requests";
 import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getTransactionById } from "./transaction-requests";
-import { BusinessDetails, BusinessEntity, BusinessInfo, UserAccount } from "./types"
+import { BusinessDetails, BusinessEntity, BusinessInfo, connectUrl, UserAccount } from "./types"
 import { UserAccountUpdate } from "./user-account-requests";
 import { addWallet, getWalletByAccountId, Wallet } from "./wallet-requests";
 
-const url:string = "http://127.0.0.1:8080"
+const url:string = connectUrl
 
 export async function insertBusinessAccount(params:BusinessEntity):Promise<UserAccount>{
     console.log(params.isForProfit)

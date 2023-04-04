@@ -1,4 +1,5 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { connectUrl } from "./types";
 
 export type TransactionReturnInfo = {
     transactionId: string
@@ -11,9 +12,9 @@ export type TransactionReturnInfo = {
 }
 
 
-const url = "http://127.0.0.1:8080/";
+const url = connectUrl;
 export async function createTransaction(params:TransactionFormState):Promise<TransactionReturnInfo> {
-    const httpResponse = await fetch(url+ "transaction", {
+    const httpResponse = await fetch(url+ "/transaction", {
         method:"POST",
         body:JSON.stringify(params),
         headers:{"Content-Type":"application/json"}
@@ -23,7 +24,7 @@ export async function createTransaction(params:TransactionFormState):Promise<Tra
 }
 
 export async function getAllTransactions():Promise<TransactionReturnInfo[]> {
-    const httpResponse = await fetch(url+"transaction", {
+    const httpResponse = await fetch(url+"/transaction", {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -33,7 +34,7 @@ export async function getAllTransactions():Promise<TransactionReturnInfo[]> {
 
 //This will get all transactions related to the user
 export async function getAllUserTransactions(params:number):Promise<TransactionReturnInfo[]> {
-    const httpResponse = await fetch(url+ "transaction/account/" + params, {
+    const httpResponse = await fetch(url+ "/transaction/account/" + params, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -43,7 +44,7 @@ export async function getAllUserTransactions(params:number):Promise<TransactionR
 
 //This will get all transactions related to the user within a month
 export async function getAllUserTransactionsByTimeRange(id:number, time:number):Promise<TransactionReturnInfo[]> {
-    const httpResponse = await fetch(url+ "transaction/date/"+id+"/" +time, {
+    const httpResponse = await fetch(url+ "/transaction/date/"+id+"/" +time, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -52,7 +53,7 @@ export async function getAllUserTransactionsByTimeRange(id:number, time:number):
 }
 
 export async function getTransactionById(params:number):Promise<TransactionReturnInfo[]> {
-    const httpResponse = await fetch(url+ "transaction/" + params, {
+    const httpResponse = await fetch(url+ "/transaction/" + params, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
@@ -61,7 +62,7 @@ export async function getTransactionById(params:number):Promise<TransactionRetur
 }
 
 export async function editTransaction(params:TransactionFormState):Promise<TransactionReturnInfo> {
-    const httpResponse = await fetch(url+ "transaction", {
+    const httpResponse = await fetch(url+ "/transaction", {
         method:"PUT",
         body:JSON.stringify(params),
         headers:{"Content-Type":"application/json"}
@@ -71,7 +72,7 @@ export async function editTransaction(params:TransactionFormState):Promise<Trans
 }
 
 export async function deleteTransaction(params:number):Promise<boolean> {
-    const httpResponse = await fetch(url + "transaction/" + params, {
+    const httpResponse = await fetch(url + "/transaction/" + params, {
         method:"DELETE",
         headers:{"Content-Type":"application/json"}
     });
