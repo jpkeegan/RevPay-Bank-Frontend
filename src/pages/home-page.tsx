@@ -55,15 +55,12 @@ export function HomePage() {
     
     function handleDateTimeAction(event:React.ChangeEvent<HTMLInputElement>){
         let unixEpochDate = +new Date(event.target.value);
-        console.log(unixEpochDate);
         setTime(unixEpochDate);
         
     }
 
     async function handleListPopulate(){
-        console.log(accountId);
         const transactionList: TransactionReturnInfo[] = await getAllUserTransactionsByTimeRange(accountId,time);
-        console.log(transactionList);
         if(transactionList){
             setList(transactionList);
             listCallBool = true;
