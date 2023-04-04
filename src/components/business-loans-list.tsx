@@ -22,7 +22,7 @@ export function BusinessLoansList() {
     }, []);
 
     const handleLoanButton = () => {
-        router("/loans")
+        router("/loan")
     };
 
     return (
@@ -33,7 +33,7 @@ export function BusinessLoansList() {
             <ul>
               {businessLoans.map((loan) => (
                 <li key={loan.loanId}>
-                  Amount: {loan.amount} <br />
+                  Amount: ${loan.amount} <br />
                   Summary: {loan.summary} <br />
                 </li>
               ))}

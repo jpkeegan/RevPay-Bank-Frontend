@@ -20,7 +20,7 @@ export function AddMoneyWalletBankAccountsList(props: BankAccountsListProps) {
             return
         }
         const newWalletForm : Wallet = {
-            walletId: wallet.accountId,
+            walletId: wallet.walletId,
             balance: wallet.balance + Number(amount),
             accountId: wallet.accountId
         };
@@ -33,6 +33,7 @@ export function AddMoneyWalletBankAccountsList(props: BankAccountsListProps) {
             balance: (bankaccount.balance - Number(amount))
         }
 
+        console.log(newWalletForm);
         await updateWallet(newWalletForm);
         await updateBankAccount(newBankAccount);
         

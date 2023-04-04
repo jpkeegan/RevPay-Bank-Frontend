@@ -12,10 +12,10 @@ import '../components/styles.css'
 export function CardManagement() {
   const [cards, setCards] = useState<Card[]>([]);
 
-
-  const [newCard, setNewCard] = useState<Card>({ cardNumber: 0, accountId: 0, credit: false, cardId: 0 });
-  const [editingCard, setEditingCard] = useState<Card | null>(null);
   const currentUserId =  Number(localStorage.getItem("accountId"));
+  const [newCard, setNewCard] = useState<Card>({ cardNumber: 0, accountId: currentUserId, credit: false, cardId: 0 });
+  const [editingCard, setEditingCard] = useState<Card | null>(null);
+  
 
   const fetchCards = async () => {
     //console.log(currentUserId + " ppp ");
@@ -121,6 +121,7 @@ export function CardManagement() {
       cardNumber, accountId, credit,
       cardId: 0
     });
+    console.log("added card" + addedCard);
     setCards((prev) => [...prev, addedCard]);
 
    
