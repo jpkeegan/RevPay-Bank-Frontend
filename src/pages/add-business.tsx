@@ -25,6 +25,7 @@ export function AddBusinessPage(){
             localStorage.setItem("accountId",String(data.accountId));
             localStorage.setItem("username",String(data.username));
             localStorage.setItem("businessAccount",String(data.businessAccount));
+            localStorage.setItem('businessId',String(data.businessId));
             router("/home")
         } 
     });

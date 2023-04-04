@@ -1,13 +1,13 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { BusinessLoan, getLoansByBusinessId } from "./business-loan-requests";
 import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getTransactionById } from "./transaction-requests";
-import { BusinessDetails, BusinessEntity, BusinessInfo, connectUrl, UserAccount } from "./types"
+import { BusinessAccount, BusinessDetails, BusinessEntity, BusinessInfo, connectUrl, UserAccount } from "./types"
 import { UserAccountUpdate } from "./user-account-requests";
 import { addWallet, getWalletByAccountId, Wallet } from "./wallet-requests";
 
 const url:string = connectUrl
 
-export async function insertBusinessAccount(params:BusinessEntity):Promise<UserAccount>{
+export async function insertBusinessAccount(params:BusinessEntity):Promise<BusinessAccount>{
     console.log(params.isForProfit)
     const account:UserAccount = {accountId:-1, username:params.username, password:params.password,email:params.email,
         phoneNumber:params.phone_number,name:params.name,address:params.address,businessAccount:true}
@@ -21,7 +21,18 @@ export async function insertBusinessAccount(params:BusinessEntity):Promise<UserA
         ein:params.ein,forProfit:params.isForProfit,accountId:newAccount.accountId}
     const newBusDetail:BusinessDetails = await insertBusiness(busDetail);
     await addWallet({balance:0,accountId:newAccount.accountId});
-    return newAccount
+    const business:BusinessAccount = {
+        accountId: newAccount.accountId,
+        username: newAccount.username,
+        password: newAccount.password,
+        email: newAccount.email,
+        phoneNumber: newAccount.phoneNumber,
+        name: newAccount.name,
+        address: newAccount.address,
+        businessAccount: true,
+        businessId: newBusDetail.businessId
+    };
+    return business
 }
 
 export async function insertBusiness(params:BusinessDetails):Promise<BusinessDetails>{

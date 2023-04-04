@@ -83,6 +83,18 @@ export type UserAccount={
     businessAccount:boolean
 }
 
+export type BusinessAccount={
+    accountId:number
+    username:string
+    password:string
+    email:string
+    phoneNumber:number
+    name:string
+    address:string
+    businessAccount:boolean
+    businessId:number
+}
+
 export type BusinessDetails={
     businessId:number
     bin:number
