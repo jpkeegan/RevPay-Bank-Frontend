@@ -12,7 +12,7 @@ type NavBarProps = {
 }
 
 export function NavBar(props:NavBarProps){
-
+    const username = localStorage.getItem("username");
     const myStyle = {
         bar:{
             width:"100%",
@@ -29,11 +29,14 @@ export function NavBar(props:NavBarProps){
 
     return<>
         <div style={{...myStyle.bar}}>
+            
             <div style={{marginLeft:"15px",  marginTop:"5px", marginBottom:"5px",display:"flex"}}>
+                
                 {props.left.map(b=><NavButton key={"lnb"+b.text} text={b.text} callback={b.callback}/>)}
             </div>
             <div style={{marginRight:"15px",  marginTop:"5px", marginBottom:"5px",display:"flex"}}>
                 {props.right.map(b=><NavButton key={"rnb"+b.text} text={b.text} callback={b.callback}/>)}
+                <h1>{username}</h1>
             </div>
         </div>
     </>

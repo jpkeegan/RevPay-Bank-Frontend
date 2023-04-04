@@ -55,15 +55,12 @@ export function HomePage() {
     
     function handleDateTimeAction(event:React.ChangeEvent<HTMLInputElement>){
         let unixEpochDate = +new Date(event.target.value);
-        console.log(unixEpochDate);
         setTime(unixEpochDate);
         
     }
 
     async function handleListPopulate(){
-        console.log(accountId);
         const transactionList: TransactionReturnInfo[] = await getAllUserTransactionsByTimeRange(accountId,time);
-        console.log(transactionList);
         if(transactionList){
             setList(transactionList);
             listCallBool = true;
@@ -85,11 +82,12 @@ export function HomePage() {
             ]} />
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
-
+        <h1 className="transaction-list-header">List Transactions based on month</h1>
         <TransactionList transactionArray={data}/><br /><br /><br />
         <label htmlFor="month">List Transactions based on month</label><br />
         <input type="month" id="month" min="2000-01" onChange={handleDateTimeAction} /><br/><br/><br/>
         <button onClick={handleListPopulate}>List</button>
+        <h1 className="transaction-list-header">Transaction List</h1>
         <TransactionList transactionArray={list}/>        
         <div>
         {isBusinessAccount && <BusinessLoansList/>}

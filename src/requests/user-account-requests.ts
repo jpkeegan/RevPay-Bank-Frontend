@@ -16,6 +16,12 @@ export type UserAccountReturnInfo = {
     businessAccount: boolean
 }
 
+export type PasswordChange = {
+    username: string,
+    oldPassword: string,
+    password: string
+}
+
 export type FailedLoginReturn = {
     status: number
     error: string
@@ -89,6 +95,18 @@ export async function updateUserAccount(id: number, user: UserAccountUpdate): Pr
     const httpResponse = await fetch(url+`/userAccount/${id}`, {
         method: "PUT",
         body: JSON.stringify(user),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const updatedUser: UserAccountReturnInfo = await httpResponse.json();
+    return updatedUser;
+}
+
+export async function updatePassword(id: number, updates: PasswordChange): Promise<UserAccountReturnInfo> {
+    const httpResponse = await fetch(url+`userAccount/passwordReset/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updates),
         headers: {
             "Content-Type": "application/json"
         }

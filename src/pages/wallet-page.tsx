@@ -4,6 +4,8 @@ import { BankAccountsList } from "../components/bank-account-list";
 import { NavBar } from "../components/nav-bar";
 import { useNavigate } from "react-router";
 import { Wallet, getWalletByAccountId } from "../requests/wallet-requests";
+import {CardManagement} from "../components/add-card"
+//import '../components/styles.css';
 
 
 export function WalletPage() {
@@ -14,21 +16,28 @@ export function WalletPage() {
         balance: 0,
         accountId: 0
     });
+
     const accountId = Number(localStorage.getItem("accountId"));
     const router = useNavigate();
+
+    const [showCardManagement, setShowCardManagement] = useState(false);
+
+    const handleAddCardClick = () => {
+      setShowCardManagement(true);
+    };
     
-    useEffect(()=>{
-        if(!accountId){
-            alert("You have to sign in.")
-            router("/")
-          }
-        (async ()=>{
-            const allBankAccounts = await getAllBankAccounts();
-            const pulledWallet = await getWalletByAccountId(accountId);
-            setBankAccounts(allBankAccounts.filter(ba=> ba.accountId == Number(accountId)));
-            setWallet(pulledWallet);
-        })();
-    }, [])
+    // useEffect(()=>{
+    //     if(!accountId){
+    //         alert("You have to sign in.")
+    //         router("/")
+    //       }
+    //     (async ()=>{
+    //         const allBankAccounts = await getAllBankAccounts();
+    //         const pulledWallet = await getWalletByAccountId(accountId);
+    //         setBankAccounts(allBankAccounts.filter(ba=> ba.accountId == Number(accountId)));
+    //         setWallet(pulledWallet);
+    //     })();
+    // }, [accountId])
 
     function addBankButton() {
         router("/bankAccount/add");
@@ -53,7 +62,14 @@ export function WalletPage() {
 
         <h5>Cards List:</h5>
 
-        <button>Add Card</button>
+        <div>
+
+      {showCardManagement ?(
+        <CardManagement />
+      ):(
+        <button onClick={handleAddCardClick}> Manage Cards</button>
+      )}
+    </div>
     
     </>
 

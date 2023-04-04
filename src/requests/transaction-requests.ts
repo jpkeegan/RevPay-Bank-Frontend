@@ -43,8 +43,8 @@ export async function getAllUserTransactions(params:number):Promise<TransactionR
 }
 
 //This will get all transactions related to the user within a month
-export async function getAllUserTransactionsByTimeRange(time:number,id:number):Promise<TransactionReturnInfo[]> {
-    const httpResponse = await fetch(url+ "/transaction/date/" +id+"/" +time, {
+export async function getAllUserTransactionsByTimeRange(id:number, time:number):Promise<TransactionReturnInfo[]> {
+    const httpResponse = await fetch(url+ "/transaction/date/"+id+"/" +time, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
     });
