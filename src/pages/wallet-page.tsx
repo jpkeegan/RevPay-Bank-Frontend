@@ -38,8 +38,7 @@ export function WalletPage() {
 
         <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
             right={[
-            {text:"Add Business",callback:()=>{router("/business/new")}},
-            {text:"Business Loan",callback:()=>{router("/loan")}},
+                ...(localStorage.getItem("businessAccount")=='true' ? [{ text: "Business Loan", callback: () => { router("/loan") } }]:[]),
             {text:"Wallet",callback:()=>{router("/wallet")}},
             {text:"Log Out",callback:()=>{router("/logout")}}]} />
     

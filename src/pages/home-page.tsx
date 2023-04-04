@@ -74,9 +74,8 @@ export function HomePage() {
     return <>
         <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
             right={[
-                ...(localStorage.getItem("businessAccount")?[{text:"My Business",callback:()=>router("/businesses/"+localStorage.getItem("accountId"))}]:[]),
-                { text: "Add Business", callback: () => { router("/business/new") } },
-                { text: "Business Loan", callback: () => { router("/loan") } },
+                ...(localStorage.getItem("businessAccount")=='true' ? [{text:"My Business",callback:()=>router("/businesses/"+localStorage.getItem("accountId"))}]:[]),
+                ...(localStorage.getItem("businessAccount")=='true' ? [{ text: "Business Loan", callback: () => { router("/loan") } }]:[]),
                 { text: "Wallet", callback: () => { router("/wallet") } },
                 { text: "Settings", callback: () => { router("/settings") } },
                 { text: "Log Out", callback: () => { router("/logout") } },

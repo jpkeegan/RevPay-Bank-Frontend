@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { NavBar } from "../components/nav-bar";
 import { RegistrationState, userRegistrationReducer } from "../reducers/user-registration-reducer";
 import { createUserAccount, getAllUsernames, UserAccountReturnInfo } from "../requests/user-account-requests";
 
@@ -114,6 +115,8 @@ export function PersonalRegistrationPage(){
     }
 
     return <>
+        <NavBar left={[{text:"Home",callback:()=>{navigation("/home")}}]}
+        right={[]} />
         <h1>Registration Page</h1>
         <fieldset>
             <label htmlFor="username">USERNAME: </label>

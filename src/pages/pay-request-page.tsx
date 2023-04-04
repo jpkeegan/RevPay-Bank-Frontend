@@ -96,6 +96,8 @@ export function PayRequestPage() {
     }
 
     return <>
+        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
+        right={[]} />
         <div className="nav-bar-container">
             <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
                 right={[

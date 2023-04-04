@@ -1,4 +1,5 @@
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
+import { BusinessLoan } from "./business-loan-requests";
 import { TransactionReturnInfo } from "./transaction-requests";
 import { Wallet } from "./wallet-requests";
 
@@ -102,5 +103,6 @@ export type BusinessInfo = {
     forProfit:       boolean;
     wallet:             Wallet;
     transactions:  TransactionReturnInfo[];
+    loans:          BusinessLoan[];
 }
 
