@@ -26,18 +26,18 @@ export function WalletPage() {
       setShowCardManagement(true);
     };
     
-    // useEffect(()=>{
-    //     if(!accountId){
-    //         alert("You have to sign in.")
-    //         router("/")
-    //       }
-    //     (async ()=>{
-    //         const allBankAccounts = await getAllBankAccounts();
-    //         const pulledWallet = await getWalletByAccountId(accountId);
-    //         setBankAccounts(allBankAccounts.filter(ba=> ba.accountId == Number(accountId)));
-    //         setWallet(pulledWallet);
-    //     })();
-    // }, [accountId])
+    useEffect(()=>{
+        if(!accountId){
+            alert("You have to sign in.")
+            router("/")
+          }
+        (async ()=>{
+            const allBankAccounts = await getAllBankAccounts();
+            const pulledWallet = await getWalletByAccountId(accountId);
+            setBankAccounts(allBankAccounts.filter(ba=> ba.accountId == Number(accountId)));
+            setWallet(pulledWallet);
+        })();
+    }, [accountId])
 
     function addBankButton() {
         router("/bankAccount/add");
