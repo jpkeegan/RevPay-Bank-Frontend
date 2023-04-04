@@ -20,8 +20,11 @@ export function AddBusinessPage(){
     const router = useNavigate();
 
     const createMutation = useMutation(insertBusinessAccount, {
-        onSuccess: () => {
+        onSuccess: (data) => {
             console.log("success")
+            localStorage.setItem("accountId",String(data.accountId));
+            localStorage.setItem("username",String(data.username));
+            localStorage.setItem("businessAccount",String(data.businessAccount));
             router("/home")
         } 
     });

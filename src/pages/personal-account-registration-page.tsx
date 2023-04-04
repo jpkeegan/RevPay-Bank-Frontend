@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/nav-bar";
 import { RegistrationState, userRegistrationReducer } from "../reducers/user-registration-reducer";
 import { createUserAccount, getAllUsernames, UserAccountReturnInfo } from "../requests/user-account-requests";
+import { Wallet, addWallet } from "../requests/wallet-requests";
 
 export type UserForm = {
     username: string
@@ -109,6 +110,8 @@ export function PersonalRegistrationPage(){
         localStorage.setItem("accountId",String(returnedUser.accountId));
         localStorage.setItem("username",String(returnedUser.username));
         localStorage.setItem("businessAccount",String(returnedUser.businessAccount));
+
+        const returnedWallet: Wallet = await addWallet({balance: 0, accountId: returnedUser.accountId});
 
         alert("Registration Successful!!!");
         navigation("/home");
