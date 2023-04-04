@@ -40,7 +40,7 @@ export type Username = {
     username: string
 }
 
-const url = "http://127.0.0.1:8080/";
+const url = "   ";
 
 export async function verifyUserAccount(login: SignInForm): Promise<UserAccountReturnInfo | FailedLoginReturn> {
     const httpResponse = await fetch(url + "login", {

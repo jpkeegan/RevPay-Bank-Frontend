@@ -89,6 +89,13 @@ export type BusinessDetails={
     accountId:number
 }
 
+export type Card = {
+    cardNumber: number
+    accountId: number
+    credit: boolean
+}
+
+
 export type BusinessInfo = {
     businessId:          number;
     accountId:           number;

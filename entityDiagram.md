@@ -43,7 +43,7 @@ title: Entity Diagram
         class Card{
             long cardNumber - SERIAL PRIMARY KEY
             long accountId - FOREIGN KEY references UserAccount
-            boolean isCredit
+            boolean credit
         }
         class Transaction{
             long transactionId - SERIAL PRIMARY KEY

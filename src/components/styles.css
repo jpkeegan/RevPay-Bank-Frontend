@@ -1,0 +1,75 @@
+.credit-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.credit-card {
+  position: relative;
+  margin: 30px;
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.credit-card__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateY(0deg);
+  transform-style: preserve-3d;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+
+/* .credit-card__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateY(0deg);
+  transform-style: preserve-3d;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
+
+
+
+/* .credit-card__icon {
+  width: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+} */
+
+.credit-card__number {
+  font-size: 20px;
+
+  text-align: center;
+}
+
+.credit-card__buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.credit-card__button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+
+  color: rgb(3, 16, 7)
+}
