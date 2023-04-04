@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { NavBar } from "../components/nav-bar";
 import { BusinessLoanForm, createBusinessLoan } from "../requests/business-loan-requests"
 
 
@@ -32,7 +33,8 @@ export function CreateBusinessLoanPage() {
 
 
     return <>
-    
+      <NavBar left={[{text:"Home",callback:()=>{navigate("/home")}}]}
+        right={[]} />
         <h2>Business Loan Creation Page</h2>
 
         <form onSubmit={(e: FormEvent<HTMLFormElement>) => buttonHandler(e)}>
