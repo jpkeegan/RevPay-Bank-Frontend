@@ -36,7 +36,7 @@ export function NavBar(props:NavBarProps){
             </div>
             <div style={{marginRight:"15px",  marginTop:"5px", marginBottom:"5px",display:"flex"}}>
                 {props.right.map(b=><NavButton key={"rnb"+b.text} text={b.text} callback={b.callback}/>)}
-                {username}
+                <h1>{username}</h1>
             </div>
         </div>
     </>

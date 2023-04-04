@@ -1,16 +1,37 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/nav-bar";
 import { userRegistrationReducer } from "../reducers/user-registration-reducer";
-import { getAllUsernames, SignInForm, updateUserAccount, UserAccountReturnInfo, UserAccountUpdate, verifyUserAccount } from "../requests/user-account-requests";
+import { getAllUsernames, getByUsername, SignInForm, updateUserAccount, UserAccountReturnInfo, UserAccountUpdate, verifyUserAccount } from "../requests/user-account-requests";
 import { initialState } from "./personal-account-registration-page";
 
 export function AccountSettings() {
 
+    const initialStateUser: UserAccountReturnInfo = {
+        accountId: 0,
+        username: "",
+        email: "",
+        phoneNumber: 0,
+        name: "",
+        address: "",
+        businessAccount: true,
+    }
     const navigation = useNavigate();
     const [trackerState, dispatch] = useReducer(userRegistrationReducer, initialState);
+    const [userDetails, setUserDetails] = useState(initialStateUser);
+    const accountId = localStorage.getItem("accountId");
+    const username = localStorage.getItem("username");
+
     useEffect(() => {
 
+        
+
+        async function fetchData() {
+            const response = await getByUsername(username as string);
+            setUserDetails(response as UserAccountReturnInfo);
+        }
+
+        fetchData();
         const accountIDCheck = localStorage.getItem("accountId");
         if (!accountIDCheck) {
             alert("You have to sign in.")
@@ -18,9 +39,8 @@ export function AccountSettings() {
         } else {
             //Else is technically not necessary, but I use it to load local storage.
         }
-    });
-    const accountId = localStorage.getItem("accountId");
-    const username = localStorage.getItem("username");
+    }, []);
+    
 
 
     function handleSetUsername(event: React.ChangeEvent<HTMLInputElement>) {
@@ -99,22 +119,22 @@ export function AccountSettings() {
     return <>
         <NavBar left={[{ text: "Home", callback: () => { navigation("/home") } }]}
             right={[]} />
-        <h1>Registration Page</h1>
+        <h1>Settings Page</h1>
         <fieldset>
             <label htmlFor="username">Change USERNAME: </label>
-            <input type="text" placeholder="Username" onChange={handleSetUsername} /> <br />
+            <input type="text" placeholder={userDetails.username} onChange={handleSetUsername} /> <br />
 
             <label htmlFor="fname">Change E-Mail Address: </label>
-            <input type="text" placeholder="E-Mail Address" onChange={handleSetEmail} /> <br />
+            <input type="text" placeholder={userDetails.email} onChange={handleSetEmail} /> <br />
 
             <label htmlFor="lname">Change Phone Number: </label>
-            <input type="tel" placeholder="Phone Number" onChange={handleSetPhoneNumber} /> <br />
+            <input type="tel" placeholder={userDetails.phoneNumber.toString()} onChange={handleSetPhoneNumber} /> <br />
 
             <label htmlFor="fname"> Change Name: </label>
-            <input type="text" placeholder="name@place.com" onChange={handleSetName} /> <br />
+            <input type="text" placeholder={userDetails.name} onChange={handleSetName} /> <br />
 
             <label htmlFor="lname"> Change Address: </label>
-            <input type="text" placeholder="123 Anywhere St." onChange={handleSetAddress} /> <br />
+            <input type="text" placeholder={userDetails.address} onChange={handleSetAddress} /> <br />
 
         </fieldset>
         <br />
