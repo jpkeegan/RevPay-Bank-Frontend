@@ -65,6 +65,7 @@ export function AccountSettings() {
     async function handleVerifyAccountSettings() {
         console.log(trackerState);
         let existingUsers = await getAllUsernames();
+        existingUsers = existingUsers.filter(user => user.username !== username);
         if (trackerState.userInfo.username.indexOf(' ') >= 0) {
             alert("Cant have spaces in username.");
             return;
@@ -113,33 +114,33 @@ export function AccountSettings() {
         }
 
         alert("Account Successfully Updated!!!");
-        navigation("/");
+        navigation("/home");
     }
 
     return <>
         <NavBar left={[{ text: "Home", callback: () => { navigation("/home") } }]}
             right={[]} />
-        <h1>Settings Page</h1>
+        <h1>Update User Information</h1>
         <fieldset>
-            <label htmlFor="username">Change USERNAME: </label>
-            <input type="text" placeholder={userDetails.username} onChange={handleSetUsername} /> <br />
+            <label htmlFor="username">Username: </label>
+            <input type="text" placeholder={userDetails.username} onChange={handleSetUsername} required/> <br />
 
-            <label htmlFor="fname">Change E-Mail Address: </label>
-            <input type="text" placeholder={userDetails.email} onChange={handleSetEmail} /> <br />
+            <label htmlFor="fname">E-Mail Address: </label>
+            <input type="text" placeholder={userDetails.email} onChange={handleSetEmail} required/> <br />
 
-            <label htmlFor="lname">Change Phone Number: </label>
-            <input type="tel" placeholder={(userDetails.phoneNumber !== null) ? userDetails.phoneNumber.toString() : "0"} onChange={handleSetPhoneNumber} /> <br />
+            <label htmlFor="lname">Phone Number: </label>
+            <input type="tel" placeholder={(userDetails.phoneNumber !== null) ? userDetails.phoneNumber.toString() : "0"} onChange={handleSetPhoneNumber} required /> <br />
 
-            <label htmlFor="fname"> Change Name: </label>
-            <input type="text" placeholder={userDetails.name} onChange={handleSetName} /> <br />
+            <label htmlFor="fname">Name: </label>
+            <input type="text" placeholder={userDetails.name} onChange={handleSetName} required /> <br />
 
-            <label htmlFor="lname"> Change Address: </label>
-            <input type="text" placeholder={userDetails.address} onChange={handleSetAddress} /> <br />
+            <label htmlFor="lname">Address: </label>
+            <input type="text" placeholder={userDetails.address} onChange={handleSetAddress} required /> <br />
 
         </fieldset>
         <br />
         <label htmlFor="password">Confirm your password: </label>
-        <input type="password" placeholder="Password" required onChange={handleSetPassword} /> <br />
+        <input type="password" placeholder="Password" onChange={handleSetPassword} required/> <br />
         <br />
         <button onClick={handleVerifyAccountSettings}>Update Account</button>
 
