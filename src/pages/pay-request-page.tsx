@@ -5,6 +5,7 @@ import { TransactionFormReducer, TransactionFormState } from "../reducers/transa
 import { TransactionReturnInfo, createTransaction } from "../requests/transaction-requests";
 import { getAllUsers, UserAccountReturnInfo } from "../requests/user-account-requests";
 import ".././styles/home-page-styles.css";
+import { getWalletByAccountId, updateWallet, Wallet } from "../requests/wallet-requests";
 
 
 export function PayRequestPage() {
@@ -34,10 +35,17 @@ export function PayRequestPage() {
         dateTime: ""
     }
 
+    const initialWallet: Wallet = {
+        walletId: 0,
+        balance: 0,
+        accountId: 0
+    };
+
     const router = useNavigate();
     const [data, setData] = useState(initialStateUser);
     const [amount, setAmount] = useState("");
     const [search, setSearch] = useState("");
+    const [userWallet, setUserWallet] = useState(initialWallet);
     let accountId: number = Number(localStorage.getItem("accountId"));
 
     //ended up not using the reducer
@@ -53,6 +61,8 @@ export function PayRequestPage() {
         async function fetchData() {
             const response = await getAllUsers();
             setData(response)
+            let walletResponse = await getWalletByAccountId(Number(accountIDCheck));
+            setUserWallet(walletResponse)
         }
 
         fetchData();
@@ -60,6 +70,12 @@ export function PayRequestPage() {
     // event handler for pay button
     async function handlePay(data: UserAccountReturnInfo) {
         //form
+        
+        if (userWallet.balance - Number(amount) < 0){
+            window.alert("Overflow! try another amount!");
+            return
+        }
+        const recipiantWallet: Wallet = await getWalletByAccountId(data.accountId);
         console.log(accountId);
         const finalStateTransaction: TransactionFormState = {
             amount: amount,
@@ -70,24 +86,59 @@ export function PayRequestPage() {
             dateTime: Date.now().toString()
         }
 
+        const finalrecipiantWallet: Wallet = {
+            walletId: recipiantWallet.walletId,
+            balance: recipiantWallet.balance + Number(amount),
+            accountId: recipiantWallet.accountId
+        };
 
+        const finaluserWallet: Wallet = {
+            walletId: userWallet.walletId,
+            balance: userWallet.balance - Number(amount),
+            accountId: userWallet.accountId
+        };
+
+        const returnedRecipiantWallet: Wallet = await updateWallet(finalrecipiantWallet);
+        const returnedUserWallet: Wallet = await updateWallet(finaluserWallet);
         const returnedTransaction: TransactionReturnInfo = await createTransaction(finalStateTransaction);
-        if (returnedTransaction) {
+        if (returnedTransaction || returnedRecipiantWallet || returnedUserWallet) {
             router("/home");
         }
     }
     // event handler for request payment
     async function handleRequest(data: UserAccountReturnInfo) {
+        const recipiantWallet: Wallet = await getWalletByAccountId(data.accountId);
+        if (recipiantWallet.balance - Number(amount) < 0){
+            window.alert("Overflow! try another amount!");
+            return
+        }
+        
+        console.log(accountId);
         const finalStateTransaction: TransactionFormState = {
             amount: amount,
-            send: false,//difference
+            send: false,// difference
             accountId: data.accountId.toString(),
             senderAccountId: accountId,
             accountEmail: data.email,
             dateTime: Date.now().toString()
         }
+
+        const finalrecipiantWallet: Wallet = {
+            walletId: recipiantWallet.walletId,
+            balance: recipiantWallet.balance - Number(amount),
+            accountId: recipiantWallet.accountId
+        };
+
+        const finaluserWallet: Wallet = {
+            walletId: userWallet.walletId,
+            balance: userWallet.balance + Number(amount),
+            accountId: userWallet.accountId
+        };
+
+        const returnedRecipiantWallet: Wallet = await updateWallet(finalrecipiantWallet);
+        const returnedUserWallet: Wallet = await updateWallet(finaluserWallet);
         const returnedTransaction: TransactionReturnInfo = await createTransaction(finalStateTransaction);
-        if (returnedTransaction) {
+        if (returnedTransaction || returnedRecipiantWallet || returnedUserWallet) {
             router("/home");
         }
 
