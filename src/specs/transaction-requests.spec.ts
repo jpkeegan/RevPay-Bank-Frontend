@@ -2,11 +2,11 @@
 import nock from "nock";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { createTransaction, deleteTransaction, editTransaction, getTransactionById } from "../requests/transaction-requests";
-
+import { connectUrl } from '../requests/types';
 /*
 
 describe("Transaction API requests", () => {
-    const url = "http://127.0.0.1:8080";
+    const url = connectUrl;
 
     let testTransaction: TransactionFormState;
   

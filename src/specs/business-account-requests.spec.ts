@@ -1,8 +1,9 @@
 import {Business, createBusinessAccount, deleteBusinessAccount, getBusinessAccountById, updateBusinessAccount} from '../requests/business-account-requests';
 import nock from 'nock';
+import { connectUrl } from '../requests/types';
 
 describe('Business Account Requests', () => {
-    const url = 'http://127.0.0.1:8080';
+    const url = connectUrl;
     let testBusinessAccount: Business;
 
     beforeAll(async () => {

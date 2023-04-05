@@ -1,10 +1,11 @@
 import { addWallet, deleteWallet, getWalletByAccountId, updateWallet, Wallet } from '../requests/wallet-requests';
 import nock from "nock";
+import { connectUrl } from '../requests/types';
 
 
 
 describe("Wallet API requests", () => { 
-  const url = "http://127.0.0.1:8080"; 
+  const url = connectUrl; 
   let testWallet: Wallet; 
   beforeAll(async () => { 
    const testWalletData = {balance: 100, accountId: 1 }; 
