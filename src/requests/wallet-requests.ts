@@ -8,9 +8,9 @@ export type Wallet = {
     accountId: number
 };
 
-export const getWalletByAccountId = async (id: number) => {
+export const getWalletByAccountId = async (id: number)=>{
     const response = await fetch(`${url}/wallet/${id}`);
-    const wallet = await response.json();
+    const wallet: Wallet = await response.json();
     return wallet;
 };
 export type AddWalletType = {
