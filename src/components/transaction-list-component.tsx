@@ -1,4 +1,5 @@
 
+import jsPDF from "jspdf";
 import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { TransactionReturnInfo } from "../requests/transaction-requests";
 
@@ -22,7 +23,7 @@ export function TransactionList(Props:{transactionArray: TransactionReturnInfo[]
                     
                 </div>
 
-                <table className="transaction-list-table">
+                <table id="pdf" className="transaction-list-table">
                     <tr className="transaction-list-table-headers">
                         <th>Transaction ID</th>
                         <th>Amount</th>
@@ -42,7 +43,6 @@ export function TransactionList(Props:{transactionArray: TransactionReturnInfo[]
                                     </tr>
                         )}
                 </table>
-                    
             </div>
     );
 }
