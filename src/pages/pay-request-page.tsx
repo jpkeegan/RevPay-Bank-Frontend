@@ -9,6 +9,8 @@ import ".././styles/home-page-styles.css";
 
 export function PayRequestPage() {
 
+    const username = localStorage.getItem("username");
+
     // initial state of user list
     const initialStateUser: UserAccountReturnInfo[] = [
         {
@@ -27,7 +29,7 @@ export function PayRequestPage() {
         amount: "",
         send: false,
         accountId: "",
-        senderAccountId:0,
+        senderAccountId: 0,
         accountEmail: "",
         dateTime: ""
     }
@@ -36,7 +38,7 @@ export function PayRequestPage() {
     const [data, setData] = useState(initialStateUser);
     const [amount, setAmount] = useState("");
     const [search, setSearch] = useState("");
-    let accountId:number = Number(localStorage.getItem("accountId"));
+    let accountId: number = Number(localStorage.getItem("accountId"));
 
     //ended up not using the reducer
     // const [FormState, dispatchForm] = useReducer(TransactionFormReducer, initialStateTransaction);
@@ -69,8 +71,8 @@ export function PayRequestPage() {
         }
 
 
-        const returnedTransaction:TransactionReturnInfo = await createTransaction(finalStateTransaction);
-        if(returnedTransaction){
+        const returnedTransaction: TransactionReturnInfo = await createTransaction(finalStateTransaction);
+        if (returnedTransaction) {
             router("/home");
         }
     }
@@ -84,11 +86,11 @@ export function PayRequestPage() {
             accountEmail: data.email,
             dateTime: Date.now().toString()
         }
-        const returnedTransaction:TransactionReturnInfo = await createTransaction(finalStateTransaction);
-        if(returnedTransaction){
+        const returnedTransaction: TransactionReturnInfo = await createTransaction(finalStateTransaction);
+        if (returnedTransaction) {
             router("/home");
         }
-        
+
     }
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
@@ -96,10 +98,10 @@ export function PayRequestPage() {
     }
 
     return <>
-        
+
         <div className="nav-bar-container">
-        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
-        right={[]} />
+            <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
+                right={[]} />
             {/* <NavBar left={[{ text: "Home", callback: () => { router("/home") } }]}
                 right={[
                     { text: "Add Business", callback: () => { router("/business/new") } },
@@ -120,20 +122,21 @@ export function PayRequestPage() {
                             <th style={{ textAlign: 'center', padding: '8px' }}>Amount</th>
 
                         </tr>
-                        {data.filter(
-                            (user) =>
+                        {data
+                            .filter(user => user.username !== username)
+                            .filter((user) =>
                                 user.username.toLowerCase().includes(search) ||
                                 user.email.includes(search) ||
                                 user.phoneNumber.toString().includes(search)).map(
                                     (user) =>
                                         <tr className="pay-request-list-table-items" key={user.accountId}>
-                                            <td style={{ textAlign: 'center', padding: '8px'  }}>{user.name}</td>
-                                            <td style={{ textAlign: 'center', padding: '8px'  }}>
+                                            <td style={{ textAlign: 'center', padding: '8px' }}>{user.name}</td>
+                                            <td style={{ textAlign: 'center', padding: '8px' }}>
                                                 <button style={{ marginRight: '10px' }} onClick={() => handlePay(user)}>Pay</button>
                                                 <button onClick={() => handleRequest(user)}>Request</button>
                                             </td>
                                             {/* usestate to set the amount of money */}
-                                            <td style={{ textAlign: 'center', padding: '8px'  }}><input onChange={(e) => setAmount(e.target.value)}></input></td>
+                                            <td style={{ textAlign: 'center', padding: '8px' }}><input onChange={(e) => setAmount(e.target.value)}></input></td>
                                         </tr>
                                 )}
                     </table>
