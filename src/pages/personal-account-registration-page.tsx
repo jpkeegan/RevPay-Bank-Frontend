@@ -118,7 +118,7 @@ export function PersonalRegistrationPage(){
     }
 
     return <>
-        <NavBar left={[{text:"Home",callback:()=>{navigation("/home")}}]}
+        <NavBar left={[{text:"Home",callback:()=>{navigation("/")}}]}
         right={[]} />
         <h1>Registration Page</h1>
         <fieldset>
