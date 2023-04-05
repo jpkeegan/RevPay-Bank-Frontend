@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { NavBar } from "../components/nav-bar";
 import { TransactionList } from "../components/transaction-list-component";
-import { TransactionFormState } from "../reducers/transaction-form-reducer";
 import { TransactionReturnInfo, getAllTransactions, getAllUserTransactions, getAllUserTransactionsByTimeRange } from "../requests/transaction-requests";
 import { BusinessLoansList } from "../components/business-loans-list";
-
+import { renderToString } from 'react-dom/server';
+import jsPDF from "jspdf";
 
 
 
@@ -68,6 +68,21 @@ export function HomePage() {
         
     }
 
+    function handleCreatePDF(exportList: TransactionReturnInfo[]){
+        const string = renderToString(<TransactionList transactionArray={exportList} />);
+        const pdf = new jsPDF({
+            orientation: 'l',
+            format: "a4",
+            unit: "px"
+          });
+
+        pdf.html(string,{
+            async callback(pdf) {
+                pdf.save("transactions.pdf");
+              }
+        });
+    }
+
 
     const isBusinessAccount = localStorage.getItem("businessAccount") === "true";
 
@@ -83,14 +98,16 @@ export function HomePage() {
         <h1>homepage</h1>
         <button onClick={()=>router("/transaction")}>Pay/Request</button>
         <h1 className="transaction-list-header">List Transactions</h1>
-        <TransactionList transactionArray={data}/><br /><br /><br />
+        <TransactionList transactionArray={data}/>
+        <button onClick={()=>handleCreatePDF(data)}>Save as PDF</button><br /><br /><br />
         <label htmlFor="month">List Transactions based on Date</label><br />
         <input type="month" id="month" min="2000-01" onChange={handleDateTimeAction} /><br/><br/><br/>
         <button onClick={handleListPopulate}>List</button>
         <h1 className="transaction-list-header">Transaction List by Date</h1>
-        <TransactionList transactionArray={list}/>        
+        <TransactionList transactionArray={list}/>  
+        <button onClick={()=>handleCreatePDF(list)}>Save as PDF</button>
         <div>
-        <h3>Business Loans List:</h3>
+        {isBusinessAccount? <h1>Business Loans List:</h1>:<></>}
         {isBusinessAccount && <BusinessLoansList/>}
         </div>
 
