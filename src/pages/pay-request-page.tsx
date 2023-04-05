@@ -123,7 +123,7 @@ export function PayRequestPage() {
 
                         </tr>
                         {data
-                            .filter(user => user.username !== username)
+                            .filter(user => user.accountId !== accountId)
                             .filter((user) =>
                                 user.username.toLowerCase().includes(search) ||
                                 user.email.includes(search) ||
