@@ -1,14 +1,13 @@
 
 import nock from "nock";
-import { TransactionFormState } from "../reducers/transaction-form-reducer";
-import { createTransaction, deleteTransaction, editTransaction, getTransactionById } from "../requests/transaction-requests";
+import { TransactionReturnInfo, createTransaction, deleteTransaction, editTransaction, getTransactionById } from "../requests/transaction-requests";
 import { connectUrl } from '../requests/types';
-/*
+
 
 describe("Transaction API requests", () => {
     const url = connectUrl;
 
-    let testTransaction: TransactionFormState;
+    let testTransaction: TransactionReturnInfo;
   
     beforeAll(async () => {
       const testTransactionData = { transactionId: "1", amount: "400", send: true, accountId: "1", senderAccountId: 2, accountEmail: "asd@gmail.com", dateTime: "1" };
@@ -64,4 +63,3 @@ describe("Transaction API requests", () => {
         expect(deleted).toBeTruthy();
       });
 });
-*/
