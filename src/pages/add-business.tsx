@@ -55,7 +55,7 @@ export function AddBusinessPage(){
     }
 
     return<>
-        <NavBar left={[{text:"Home",callback:()=>{router("/home")}}]}
+        <NavBar left={[{text:"Home",callback:()=>{router("/")}}]}
         right={[]} />
         <Form def={businessFormDef} initState={businessForm} handler={submitBusiness} buttonText={"Submit"}/>
         {bools.compsChecked.map(c=><Checkbox key={c.about} isChecked={c.checked} label={c.about} checkHandler={()=>{updateCheckStatus(c.id)}} index={c.id}/>)}
